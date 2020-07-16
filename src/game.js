@@ -1,5 +1,6 @@
 import * as PIXI from 'pixi.js'
 import axios from 'axios'
+import * as dat from 'dat.gui'
 import people from './assets/json/people.json'
 import load_resources from './assets/json/resources.json'
 import Startpage from './js/game/startpage'
@@ -22,9 +23,14 @@ let app = new Application({
 
 console.log('people', people)
 console.log('resources', load_resources)
-console.log('app.width', app)
 
 loader.add(getloadResources(load_resources)).load(start)
+
+var FizzyText = function () {
+    this.message = 'dat.gui'
+    this.alpha = 1
+    this.displayOutline = false
+}
 
 function getloadResources(load_resources) {
     var data = []
@@ -37,6 +43,9 @@ function start() {
     var startpage = new Startpage(app.renderer.width, app.renderer.height)
     app.stage.addChild(startpage.container)
     console.log('game ready')
+    var fizzyText = new FizzyText()
+    var gui = new dat.GUI()
+    gui.add(fizzyText, 'alpha', 0, 1)
 }
 
 // axios.get().then((res) => {

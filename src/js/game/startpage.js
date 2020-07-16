@@ -40,12 +40,13 @@ export default class GameStartUI {
         text.anchor.set(0.5, 0.5)
         text.position.set(this.width / 2, (this.height / 4) * 3)
         this.container.addChild(text)
-        this.doGASP(text)
+        this.text = text
+        this.doGASP(text, 1)
     }
 
-    doGASP(sprite) {
-        gsap.to(sprite, {
-            pixi: { scaleX: 1.5, scaleY: 1.5, alpha: 1, positionY: sprite.position.y + 15 },
+    doGASP(sprite, alpha) {
+        this.animation = gsap.to(sprite, {
+            pixi: { scaleX: 1.5, scaleY: 1.5, alpha: alpha, positionY: sprite.position.y + 15 },
             duration: 1,
             repeat: -1,
             yoyo: true,
