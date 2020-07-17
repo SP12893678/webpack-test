@@ -1,6 +1,8 @@
 import * as PIXI from 'pixi.js'
 import { gsap } from 'gsap'
 import { PixiPlugin } from 'gsap/PixiPlugin'
+import { OutlineFilter } from 'pixi-filters'
+
 // import load_resources from './assets/json/resources.json'
 
 gsap.registerPlugin(PixiPlugin)
@@ -36,6 +38,8 @@ export default class GameStartUI {
             fill: 0xf1f1f1,
             align: 'center',
         })
+        text.filters = [new OutlineFilter(1, 0xf0aaee)]
+
         text.alpha = 0.5
         text.anchor.set(0.5, 0.5)
         text.position.set(this.width / 2, (this.height / 4) * 3)

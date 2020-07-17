@@ -1,4 +1,4 @@
 {
-    "game_start_page": ["./src/assets/images/game-start.jpg"],
+    "game_start_page": ["./src/assets/images/game-start.jpg", "./src/assets/audio/brooming1.mp3"],
     "creat_role_page": []
 }

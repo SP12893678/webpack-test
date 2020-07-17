@@ -4,6 +4,7 @@ import * as dat from 'dat.gui'
 import people from './assets/json/people.json'
 import load_resources from './assets/json/resources.json'
 import Startpage from './js/game/startpage'
+import Sound from 'pixi-sound'
 
 let Application = PIXI.Application,
     Container = PIXI.Container,
@@ -46,6 +47,11 @@ function start() {
     var fizzyText = new FizzyText()
     var gui = new dat.GUI()
     gui.add(fizzyText, 'alpha', 0, 1)
+
+    /**PIXI sound test */
+    // Sound.stopAll()
+    // Sound.add('brooming1', resources['./src/assets/audio/brooming1.mp3'])
+    // Sound.play('brooming1')
 }
 
 // axios.get().then((res) => {
