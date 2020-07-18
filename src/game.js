@@ -1,10 +1,12 @@
 import * as PIXI from 'pixi.js'
 import * as dat from 'dat.gui'
 import axios from 'axios'
+import Sound from 'pixi-sound'
+
 import people from './assets/json/people.json'
 import load_resources from './assets/json/resources.json'
+
 import Startpage from './js/game/startpage'
-import Sound from 'pixi-sound'
 
 let Application = PIXI.Application,
     Container = PIXI.Container,
@@ -54,6 +56,6 @@ function start() {
     // Sound.play('brooming1')
 }
 
-// axios.get().then((res) => {
-//     console.log(res.data)
-// })
+axios.get('./src/php/test.php', { params: { type: 'test' } }).then((res) => {
+    console.log(res.data)
+})

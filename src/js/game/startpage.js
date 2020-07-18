@@ -3,8 +3,11 @@ import * as particles from 'pixi-particles'
 import { OutlineFilter } from 'pixi-filters'
 import { gsap } from 'gsap'
 import { PixiPlugin } from 'gsap/PixiPlugin'
+
 import emitter_test from '@/assets/json/emitter.json'
 import emitter_shot from '@/assets/json/emitter-shot.json'
+
+import Button from './component/button'
 
 // import load_resources from './assets/json/resources.json'
 gsap.registerPlugin(PixiPlugin)
@@ -98,41 +101,10 @@ export default class GameStartUI {
         this.button = button
         this.doParticles()
 
-        var button2 = new Container()
+        var button2 = new Button(150, 50, 20)
         button2.position.set(100, 400)
-
-        maskGraphic = new PIXI.Graphics()
-        maskGraphic.beginFill(0xff0000)
-        maskGraphic.moveTo(20, 0)
-        maskGraphic.lineTo(170, 0)
-        maskGraphic.lineTo(150, 50)
-        maskGraphic.lineTo(0, 50)
-        maskGraphic.lineTo(20, 0)
-        maskGraphic.endFill()
-
-        border = new PIXI.Graphics()
-        border.lineStyle(2, 0xe4f9ff, 1)
-        border.moveTo(20, 0)
-        border.lineTo(170, 0)
-        border.lineTo(150, 50)
-        border.lineTo(0, 50)
-        border.lineTo(20, 0)
-
-        text = new PIXI.Text('開始遊戲', {
-            fontFamily: 'Noto Sans TC',
-            fontSize: 16,
-            fill: 0xf1f1f1,
-            align: 'center',
-            fontWeight: '400',
-        })
-        text.position.set((maskGraphic.width - text.width) / 2, (maskGraphic.height - text.height) / 2)
-        button2.mask = maskGraphic
-        button2.addChild(maskGraphic)
-        button2.addChild(text)
-        button2.addChild(border)
         this.container.addChild(button2)
         this.button2 = button2
-        this.doParticles2()
     }
 
     doParticles() {
@@ -142,26 +114,6 @@ export default class GameStartUI {
             this.button,
             [PIXI.Texture.fromImage('./src/assets/images/particle.png')],
             emitter_test
-        )
-        var elapsed = Date.now()
-        var update = function () {
-            requestAnimationFrame(update)
-            var now = Date.now()
-
-            emitter.update((now - elapsed) * 0.001)
-            elapsed = now
-        }
-        emitter.emit = true
-        update()
-    }
-
-    doParticles2() {
-        emitter_shot.pos.x = -300
-        emitter_shot.pos.y = 50
-        var emitter = new particles.Emitter(
-            this.button2,
-            [PIXI.Texture.fromImage('./src/assets/images/particle.png')],
-            emitter_shot
         )
         var elapsed = Date.now()
         var update = function () {
