@@ -1,6 +1,6 @@
 import * as PIXI from 'pixi.js'
-import axios from 'axios'
 import * as dat from 'dat.gui'
+import axios from 'axios'
 import people from './assets/json/people.json'
 import load_resources from './assets/json/resources.json'
 import Startpage from './js/game/startpage'

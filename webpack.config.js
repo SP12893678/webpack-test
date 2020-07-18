@@ -20,9 +20,9 @@ module.exports = {
             },
         ],
     },
-    // resolve: {
-    //     alias: {
-    //         '@': path.resolve('src'),
-    //     },
-    // },
+    resolve: {
+        alias: {
+            '@': path.resolve('src'),
+        },
+    },
 }
