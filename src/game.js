@@ -1,3 +1,4 @@
+import 'babel-polyfill'
 import * as PIXI from 'pixi.js'
 import * as dat from 'dat.gui'
 import axios from 'axios'
@@ -7,6 +8,7 @@ import people from './assets/json/people.json'
 import load_resources from './assets/json/resources.json'
 
 import Startpage from './js/game/startpage'
+import { apiTest } from './js/api'
 
 let Application = PIXI.Application,
     Container = PIXI.Container,
@@ -59,3 +61,17 @@ function start() {
 axios.get('./src/php/test.php', { params: { type: 'test' } }).then((res) => {
     console.log(res.data)
 })
+
+apiTest({ name: 'Teddy', age: 21 })
+    .then((res) => {
+        console.log(res.data)
+    })
+    .catch((error) => {
+        console.log(error)
+    })
+
+test()
+async function test() {
+    const item = await apiTest({ name: 'Teddy', age: 21 })
+    console.log(item)
+}

@@ -2,6 +2,13 @@ import * as PIXI from 'pixi.js'
 import * as particles from 'pixi-particles'
 import emitter_data from '@/assets/json/emitter-shot.json'
 
+/**
+ * A button component that's shape is Parallelogram
+ * @constructor
+ * @param {number} x_width - The width of the Parallelogram
+ * @param {number} y_height - The height of the Parallelogram
+ * @param {number} offset - The offset of the Parallelogram
+ */
 export default class Button extends PIXI.Container {
     constructor(x_width, y_height, offset) {
         super()

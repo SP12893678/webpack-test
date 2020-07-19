@@ -5,11 +5,9 @@ import { gsap } from 'gsap'
 import { PixiPlugin } from 'gsap/PixiPlugin'
 
 import emitter_test from '@/assets/json/emitter.json'
-import emitter_shot from '@/assets/json/emitter-shot.json'
 
 import Button from './component/button'
 
-// import load_resources from './assets/json/resources.json'
 gsap.registerPlugin(PixiPlugin)
 PixiPlugin.registerPIXI(PIXI)
 
