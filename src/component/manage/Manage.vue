@@ -1,9 +1,4 @@
 <template>
-    <!-- <div>
-        <h1>This is Manage Page.</h1>
-        <router-link to="/foo">Go to Foo</router-link>
-        <router-view></router-view>
-    </div> -->
     <v-app id="inspire">
         <div>
             <v-app-bar color="deep-purple" dark>
@@ -21,9 +16,9 @@
 
             <v-navigation-drawer v-model="nav_drawer" absolute temporary width="280">
                 <v-list nav class="py-0">
-                    <v-list-item two-line>
+                    <v-list-item class="mb-0" two-line>
                         <v-list-item-avatar>
-                            <!-- <img src="./assets/images/avatar-default.png" /> -->
+                            <v-img :src="require('@/assets/images/avatar-default.png')"></v-img>
                         </v-list-item-avatar>
 
                         <v-list-item-content>
@@ -43,14 +38,14 @@
                             <v-list-item-title>首頁</v-list-item-title>
                         </v-list-item>
 
-                        <v-list-item to="/manage-enviro">
+                        <v-list-item to="/enviroment-dashboard">
                             <v-list-item-icon>
                                 <v-icon>mdi-monitor-edit</v-icon>
                             </v-list-item-icon>
                             <v-list-item-title>情境教材管理</v-list-item-title>
                         </v-list-item>
 
-                        <v-list-item to="/manage-audio">
+                        <v-list-item to="/audio-dashboard">
                             <v-list-item-icon>
                                 <v-icon>mdi-music-box</v-icon>
                             </v-list-item-icon>
@@ -76,12 +71,17 @@ export default {
     data() {
         return {
             nav_drawer: false,
-            passdata: {},
+            passdata: {}
         }
     },
     mounted() {
         console.log('Manage Page run')
-    },
+
+        /**Todo
+         * requset personal data and update name and identity
+         * else router push to Website Index
+         */
+    }
 }
 </script>
 

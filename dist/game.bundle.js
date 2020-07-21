@@ -6945,11 +6945,11 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var babe
 /*!***********************!*\
   !*** ./src/js/api.js ***!
   \***********************/
-/*! exports provided: apiTest */
+/*! exports provided: apiTest, apiManageEnviroment, apiManageAudio */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"apiTest\", function() { return apiTest; });\n/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ \"./node_modules/axios/index.js\");\n/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);\n\nvar userRequest = axios__WEBPACK_IMPORTED_MODULE_0___default.a.create({\n  baseURL: '../php'\n});\nvar apiTest = function apiTest(data) {\n  return userRequest.get('/test.php', {\n    params: data\n  });\n};\n\n//# sourceURL=webpack:///./src/js/api.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"apiTest\", function() { return apiTest; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"apiManageEnviroment\", function() { return apiManageEnviroment; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"apiManageAudio\", function() { return apiManageAudio; });\n/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ \"./node_modules/axios/index.js\");\n/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);\n\nvar userRequest = axios__WEBPACK_IMPORTED_MODULE_0___default.a.create({\n  baseURL: '../php'\n});\nvar apiTest = function apiTest(data) {\n  return userRequest.get('/test.php', {\n    params: data\n  });\n};\nvar apiManageEnviroment = function apiManageEnviroment(data) {\n  return userRequest.get('/enviroment.php', {\n    params: data\n  });\n};\nvar apiManageAudio = function apiManageAudio(data) {\n  return userRequest.get('/audio.php', {\n    params: data\n  });\n};\n\n//# sourceURL=webpack:///./src/js/api.js?");
 
 /***/ }),
 

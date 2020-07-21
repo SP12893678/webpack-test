@@ -51,6 +51,32 @@ module.exports = {
                 test: /\.css$/,
                 use: ['vue-style-loader', 'css-loader'],
             },
+            {
+                test: /\.(png|jpe?g|gif)$/i,
+                use: [
+                    {
+                        // 直接配置 url-loader 就好，超過上限的資源會自動 fallback 給 file-loader
+                        loader: 'url-loader',
+                        options: {
+                            name: 'assets/images/[hash:7].[ext]',
+                            limit: 10000,
+                            esModule: false,
+                        },
+                    },
+                ],
+            },
+            {
+                test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: 'assets/font/[hash:7].[ext]',
+                            limit: 100000,
+                        },
+                    },
+                ],
+            },
         ],
     },
     plugins: [
@@ -61,6 +87,7 @@ module.exports = {
         alias: {
             vue: 'vue/dist/vue.js',
             '@': path.resolve('src'),
+            Manage: path.resolve('./src/component/manage'),
         },
     },
 }
