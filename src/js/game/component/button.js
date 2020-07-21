@@ -62,7 +62,7 @@ export default class Button extends PIXI.Container {
         emitter_data.pos.y = 50
         var emitter = new particles.Emitter(
             this,
-            [PIXI.Texture.fromImage('./src/assets/images/particle.png')],
+            [PIXI.Texture.fromImage('../src/assets/images/particle.png')],
             emitter_data
         )
         var elapsed = Date.now()

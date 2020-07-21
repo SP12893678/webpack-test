@@ -29,7 +29,7 @@ export default class GameStartUI {
     }
 
     setBackground() {
-        var background = new Sprite(resources['./src/assets/images/game-start.jpg'].texture)
+        var background = new Sprite(resources['../src/assets/images/game-start.jpg'].texture)
         var scale = this.width / background.width
         background.scale.set(scale, scale)
         this.container.addChild(background)
@@ -110,7 +110,7 @@ export default class GameStartUI {
         emitter_test.pos.y = 220
         var emitter = new particles.Emitter(
             this.button,
-            [PIXI.Texture.fromImage('./src/assets/images/particle.png')],
+            [PIXI.Texture.fromImage('../src/assets/images/particle.png')],
             emitter_test
         )
         var elapsed = Date.now()

@@ -1,8 +1,8 @@
 {
     "game_start_page": [
-        "./src/assets/images/game-start.jpg",
-        "./src/assets/audio/brooming1.mp3",
-        "./src/assets/images/particle.png"
+        "../src/assets/images/game-start.jpg",
+        "../src/assets/audio/brooming1.mp3",
+        "../src/assets/images/particle.png"
     ],
     "creat_role_page": []
 }
