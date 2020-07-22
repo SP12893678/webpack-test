@@ -221,25 +221,19 @@ export default {
                     var new_arr = this.dialog.items.filter(item => {
                         return this.category_options.indexOf(item) < 0
                     })
-                    this.category_options = this.category_options.concat(
-                        new_arr
-                    )
+                    this.category_options.push(...new_arr)
                     break
                 case 'frequency':
                     var new_arr = this.dialog.items.filter(item => {
                         return this.frequency_options.indexOf(item) < 0
                     })
-                    this.frequency_options = this.frequency_options.concat(
-                        new_arr
-                    )
+                    this.frequency_options.push(...new_arr)
                     break
                 case 'waveform':
                     var new_arr = this.dialog.items.filter(item => {
                         return this.waveform_options.indexOf(item) < 0
                     })
-                    this.waveform_options = this.waveform_options.concat(
-                        new_arr
-                    )
+                    this.waveform_options.push(...new_arr)
                     break
                 default:
                     break
