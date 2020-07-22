@@ -22,7 +22,13 @@
                 echo json_encode($data, JSON_UNESCAPED_UNICODE);
             }
             break;
-        
+        case 'delete':
+
+            // $items = $_GET['items'];
+            // $object_arr = join(",",$items);
+            // echo $object_arr;
+            // $sql = "DELETE FROM data WHERE id IN (".$object_arr.")";
+            break;
         default:
             # code...
             break;

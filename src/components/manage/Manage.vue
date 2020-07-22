@@ -5,13 +5,34 @@
                 <v-app-bar-nav-icon @click="nav_drawer = true"></v-app-bar-nav-icon>
                 <v-toolbar-title>情境式環境音管理平台</v-toolbar-title>
                 <v-spacer></v-spacer>
-                <v-btn icon>
-                    <v-icon>mdi-heart</v-icon>
-                </v-btn>
-
-                <v-btn icon>
-                    <v-icon>mdi-magnify</v-icon>
-                </v-btn>
+                <v-menu rounded="lg" offset-y>
+                    <template v-slot:activator="{ attrs, on }">
+                        <v-btn v-bind="attrs" v-on="on" icon>
+                            <v-icon>mdi-help-network</v-icon>
+                        </v-btn>
+                    </template>
+                    <v-list>
+                        <v-list-item link>
+                            <v-list-item-icon class="mr-2">
+                                <v-icon>mdi-book-open-variant</v-icon>
+                            </v-list-item-icon>
+                            <v-list-item-title>說明手冊</v-list-item-title>
+                        </v-list-item>
+                        <v-list-item link>
+                            <v-list-item-icon class="mr-2">
+                                <v-icon>mdi-teach</v-icon>
+                            </v-list-item-icon>
+                            <v-list-item-title>操作導覽</v-list-item-title>
+                        </v-list-item>
+                        <v-divider></v-divider>
+                        <v-list-item link>
+                            <v-list-item-icon class="mr-2">
+                                <v-icon>mdi-card-account-mail</v-icon>
+                            </v-list-item-icon>
+                            <v-list-item-title>客服訊問</v-list-item-title>
+                        </v-list-item>
+                    </v-list>
+                </v-menu>
             </v-app-bar>
 
             <v-navigation-drawer v-model="nav_drawer" absolute temporary width="280">

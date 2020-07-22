@@ -26,7 +26,11 @@
                 echo json_encode(mysqli_fetch_array($result), JSON_UNESCAPED_UNICODE);
             }
             break;
-        
+        case 'delete':
+            
+            $id = $_GET['id'];
+            $sql = "DELETE FROM enviro WHERE id = '". $id ."'";
+            break;
         default:
             # code...
             break;

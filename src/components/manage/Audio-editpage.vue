@@ -26,7 +26,7 @@
                 </v-btn>
             </v-list-item-action>
             <v-list-item-action class="ml-0 mb-0">
-                <v-btn @click color="red" text>
+                <v-btn @click="saveAudioData" color="red" text>
                     <v-icon left>mdi-content-save</v-icon>儲存資源
                 </v-btn>
             </v-list-item-action>
@@ -192,17 +192,6 @@ export default {
                 })
         },
         getAudioFormat() {
-            // return axios
-            //     .get('./res/json/audio_format.json', {})
-            //     .then(res => {
-            //         console.log(res.data)
-            //         this.frequency_options = res.data.frequency
-            //         this.waveform_options = res.data.waveform
-            //         this.category_options = res.data.category
-            //     })
-            //     .catch(error => {
-            //         console.error(error)
-            //     })
             this.frequency_options = audio_format.frequency
             this.waveform_options = audio_format.waveform
             this.category_options = audio_format.category
@@ -277,9 +266,28 @@ export default {
                 this.audio_player.play()
             }
         },
-        saveAudioData() {},
+        saveAudioData() {
+            console.log('audio', this.audio)
+            apiManageAudio({
+                type: 'edit',
+                items: this.audio
+            }).then(res => {
+                console.log(res.data)
+            })
+        },
         addAudioData() {
-            var emptydata = {}
+            var emptydata = {
+                id: '-1',
+                audio_id: '',
+                category: [],
+                created_time: '',
+                frequency: [],
+                name: '',
+                pic_src: '',
+                sound_src: '',
+                waveform: ''
+            }
+
             this.audio.splice(0, 0, emptydata)
         },
         deleteAudioData(item) {
