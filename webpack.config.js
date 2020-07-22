@@ -77,6 +77,19 @@ module.exports = {
                     },
                 ],
             },
+            {
+                test: /\.(xlsx)(\?v=\d+\.\d+\.\d+)?$/,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: 'assets/xlsx/[name].[ext]',
+                            limit: 100000,
+                            esModule: false,
+                        },
+                    },
+                ],
+            },
         ],
     },
     plugins: [
@@ -87,7 +100,7 @@ module.exports = {
         alias: {
             vue: 'vue/dist/vue.js',
             '@': path.resolve('src'),
-            Manage: path.resolve('./src/component/manage'),
+            Manage: path.resolve('./src/components/manage'),
         },
     },
 }
