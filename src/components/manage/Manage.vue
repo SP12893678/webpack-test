@@ -2,7 +2,9 @@
     <v-app id="inspire">
         <div>
             <v-app-bar color="deep-purple" dark>
-                <v-app-bar-nav-icon @click="nav_drawer = true"></v-app-bar-nav-icon>
+                <v-app-bar-nav-icon
+                    @click="nav_drawer = true"
+                ></v-app-bar-nav-icon>
                 <v-toolbar-title>情境式環境音管理平台</v-toolbar-title>
                 <v-spacer></v-spacer>
                 <v-menu rounded="lg" offset-y>
@@ -12,7 +14,7 @@
                         </v-btn>
                     </template>
                     <v-list>
-                        <v-list-item link>
+                        <v-list-item link @click="test">
                             <v-list-item-icon class="mr-2">
                                 <v-icon>mdi-book-open-variant</v-icon>
                             </v-list-item-icon>
@@ -35,23 +37,36 @@
                 </v-menu>
             </v-app-bar>
 
-            <v-navigation-drawer v-model="nav_drawer" absolute temporary width="280">
+            <v-navigation-drawer
+                v-model="nav_drawer"
+                absolute
+                temporary
+                width="280"
+            >
                 <v-list nav class="py-0">
                     <v-list-item class="mb-0" two-line>
                         <v-list-item-avatar>
-                            <v-img :src="require('@/assets/images/avatar-default.png')"></v-img>
+                            <v-img
+                                :src="
+                                    require('@/assets/images/avatar-default.png')
+                                "
+                            ></v-img>
                         </v-list-item-avatar>
 
                         <v-list-item-content>
                             <v-list-item-title>User Name</v-list-item-title>
-                            <v-list-item-subtitle>Identity</v-list-item-subtitle>
+                            <v-list-item-subtitle
+                                >Identity</v-list-item-subtitle
+                            >
                         </v-list-item-content>
                     </v-list-item>
 
                     <v-divider></v-divider>
                 </v-list>
                 <v-list nav>
-                    <v-list-item-group active-class="deep-purple--text text--accent-4">
+                    <v-list-item-group
+                        active-class="deep-purple--text text--accent-4"
+                    >
                         <v-list-item to="/">
                             <v-list-item-icon>
                                 <v-icon>mdi-home</v-icon>
@@ -83,7 +98,16 @@
                 </v-list>
             </v-navigation-drawer>
         </div>
-        <router-view :passdata="passdata" @passdata="passdata = $event"></router-view>
+        <router-view
+            :passdata="passdata"
+            @passdata="passdata = $event"
+        ></router-view>
+
+        <v-dialog v-model="dialog" width="800">
+            <v-card>
+                <v-card-title>Test Title</v-card-title>
+            </v-card>
+        </v-dialog>
     </v-app>
 </template>
 
@@ -92,18 +116,25 @@ export default {
     data() {
         return {
             nav_drawer: false,
-            passdata: {}
-        }
+            passdata: {},
+            dialog: false,
+        };
     },
     mounted() {
-        console.log('Manage Page run')
+        console.log("Manage Page run");
 
         /**Todo
          * requset personal data and update name and identity
          * else router push to Website Index
          */
-    }
-}
+    },
+    methods: {
+        test() {
+            this.dialog = true;
+            console.log("dialog", this.dialog);
+        },
+    },
+};
 </script>
 
 <style scoped></style>

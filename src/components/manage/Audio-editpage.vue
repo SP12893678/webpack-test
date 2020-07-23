@@ -3,7 +3,9 @@
         <!--聲音資源標題 & 新增資料類別;頻率;波形/儲存按鈕 -->
         <v-list-item two-line>
             <v-list-item-content>
-                <v-list-item-title class="jf-title pa-2">聲音資源編輯</v-list-item-title>
+                <v-list-item-title class="jf-title pa-2"
+                    >聲音資源編輯</v-list-item-title
+                >
             </v-list-item-content>
             <v-list-item-action class="ml-0 mb-0">
                 <v-btn @click="addAudioData" text>
@@ -44,13 +46,23 @@
                     multi-sort
                 >
                     <template v-slot:item.name="{ item }">
-                        <v-text-field v-model="item.name" clearable></v-text-field>
+                        <v-text-field
+                            v-model="item.name"
+                            clearable
+                        ></v-text-field>
                     </template>
                     <template v-slot:item.audio_id="{ item }">
-                        <v-text-field v-model="item.audio_id" clearable></v-text-field>
+                        <v-text-field
+                            v-model="item.audio_id"
+                            clearable
+                        ></v-text-field>
                     </template>
                     <template v-slot:item.category="{ item }">
-                        <v-select v-model="item.category" :items="category_options" multiple>
+                        <v-select
+                            v-model="item.category"
+                            :items="category_options"
+                            multiple
+                        >
                             <template v-slot:selection="{ item, index }">
                                 <v-chip :color="getColor(item)" label small>
                                     <span>{{ item }}</span>
@@ -59,15 +71,22 @@
                         </v-select>
                     </template>
                     <template v-slot:item.frequency="{ item }">
-                        <v-select v-model="item.frequency" :items="frequency_options" multiple></v-select>
+                        <v-select
+                            v-model="item.frequency"
+                            :items="frequency_options"
+                            multiple
+                        ></v-select>
                     </template>
                     <template v-slot:item.waveform="{ item }">
-                        <v-select v-model="item.waveform" :items="waveform_options"></v-select>
+                        <v-select
+                            v-model="item.waveform"
+                            :items="waveform_options"
+                        ></v-select>
                     </template>
                     <template v-slot:item.upload="{ item }">
                         <v-file-input
                             v-model="item.file"
-                            @change="onChange($event,item)"
+                            @change="onChange($event, item)"
                             class="ma-0 pa-0"
                             prepend-icon="mdi-cloud-upload"
                             hide-input
@@ -86,7 +105,7 @@
                 </v-data-table>
                 <v-dialog v-model="dialog.body" max-width="800" persistent>
                     <v-card>
-                        <v-card-title>{{dialog.title}}</v-card-title>
+                        <v-card-title>{{ dialog.title }}</v-card-title>
                         <v-card-text>
                             <v-combobox
                                 v-model="dialog.items"
@@ -97,8 +116,15 @@
                         </v-card-text>
                         <v-card-actions>
                             <v-spacer></v-spacer>
-                            <v-btn @click="dialog.body = false" color="blue darken-1" text>離開</v-btn>
-                            <v-btn @click="addOption" color="red darken-1" text>插入</v-btn>
+                            <v-btn
+                                @click="dialog.body = false"
+                                color="blue darken-1"
+                                text
+                                >離開</v-btn
+                            >
+                            <v-btn @click="addOption" color="red darken-1" text
+                                >插入</v-btn
+                            >
                         </v-card-actions>
                     </v-card>
                 </v-dialog>
@@ -108,187 +134,187 @@
 </template>
 
 <script>
-import audio_format from '@/assets/json/audio_format.json'
-import { apiManageAudio } from '@/js/api'
+import audio_format from "@/assets/json/audio_format.json";
+import { apiManageAudio } from "@/js/api";
 
 export default {
-    props: ['passdata'],
+    props: ["passdata"],
     data() {
         return {
             dialog: {
                 body: false,
                 items: [],
-                title: '新增類別',
-                type: 'category'
+                title: "新增類別",
+                type: "category",
             },
-            hello: 'world',
+            hello: "world",
             audio: [],
             audio_header: [
                 {
-                    text: '名稱',
-                    align: 'start',
-                    value: 'name'
+                    text: "名稱",
+                    align: "start",
+                    value: "name",
                 },
-                { text: '代號', value: 'audio_id' },
-                { text: '分類', value: 'category' },
-                { text: '頻率', value: 'frequency' },
-                { text: '波形', value: 'waveform' },
-                { text: '上傳', value: 'upload', sortable: false },
-                { text: '聲音', value: 'sound', sortable: false },
-                { text: '刪除', value: 'delete', sortable: false }
+                { text: "代號", value: "audio_id" },
+                { text: "分類", value: "category" },
+                { text: "頻率", value: "frequency" },
+                { text: "波形", value: "waveform" },
+                { text: "上傳", value: "upload", sortable: false },
+                { text: "聲音", value: "sound", sortable: false },
+                { text: "刪除", value: "delete", sortable: false },
             ],
             category_options: [],
             frequency_options: [],
             waveform_options: [],
             colors: [],
-            audio_player: new Audio()
+            audio_player: new Audio(),
             // audio_data_table: {
 
             // }
-        }
+        };
     },
     async mounted() {
-        console.log('Audio edit Page run')
+        console.log("Audio edit Page run");
         // console.log(this.passdata);
-        if (this.passdata.audio == null) this.$router.back()
+        if (this.passdata.audio == null) this.$router.back();
         // console.log(this.passdata.audio == null);
-        if (this.passdata.audio.id.length > 0) await this.getAudioData()
-        await this.getAudioFormat()
-        this.setCategoryColor()
-        if (this.passdata.audio.id.length <= 0) this.addAudioData()
+        if (this.passdata.audio.id.length > 0) await this.getAudioData();
+        await this.getAudioFormat();
+        this.setCategoryColor();
+        if (this.passdata.audio.id.length <= 0) this.addAudioData();
     },
     methods: {
         test(item) {
-            console.log(item)
+            console.log(item);
         },
         setCategoryColor() {
-            var app = this
+            var app = this;
             for (let index = 0; index < this.category_options.length; index++) {
-                var r = Math.round(Math.random() * 255)
-                var g = Math.round(Math.random() * 255)
-                var b = Math.round(Math.random() * 255)
+                var r = Math.round(Math.random() * 255);
+                var g = Math.round(Math.random() * 255);
+                var b = Math.round(Math.random() * 255);
 
-                var color = `rgba(${r}, ${g}, ${b}, 0.5)`
-                app.colors.push(color)
+                var color = `rgba(${r}, ${g}, ${b}, 0.5)`;
+                app.colors.push(color);
             }
         },
         getAudioData() {
             return apiManageAudio({
-                type: 'get',
-                amount: 'part',
-                items: this.passdata.audio.id
+                type: "get",
+                amount: "part",
+                items: this.passdata.audio.id,
             })
-                .then(res => {
-                    console.log(res.data)
-                    this.audio = res.data
-                    this.audio.forEach(item => {
-                        item.category = item.category.split(';')
-                        item.frequency = item.frequency.split(';')
-                    })
-                    console.log(res.data)
+                .then((res) => {
+                    console.log(res.data);
+                    this.audio = res.data;
+                    this.audio.forEach((item) => {
+                        item.category = item.category.split(";");
+                        item.frequency = item.frequency.split(";");
+                    });
+                    console.log(res.data);
                 })
-                .catch(error => {
-                    console.error(error)
-                })
+                .catch((error) => {
+                    console.error(error);
+                });
         },
         getAudioFormat() {
-            this.frequency_options = audio_format.frequency
-            this.waveform_options = audio_format.waveform
-            this.category_options = audio_format.category
+            this.frequency_options = audio_format.frequency;
+            this.waveform_options = audio_format.waveform;
+            this.category_options = audio_format.category;
         },
         getColor(category) {
-            var index = this.category_options.indexOf(category)
-            return this.colors[index]
+            var index = this.category_options.indexOf(category);
+            return this.colors[index];
         },
         addCategoryAsk() {
-            this.dialog.title = '新增類別'
-            this.dialog.type = 'category'
-            this.dialog.body = true
+            this.dialog.title = "新增類別";
+            this.dialog.type = "category";
+            this.dialog.body = true;
         },
         addFrequencyAsk() {
-            this.dialog.title = '新增頻率'
-            this.dialog.type = 'frequency'
-            this.dialog.body = true
+            this.dialog.title = "新增頻率";
+            this.dialog.type = "frequency";
+            this.dialog.body = true;
         },
         addWaveformAsk() {
-            this.dialog.title = '新增波形'
-            this.dialog.type = 'waveform'
-            this.dialog.body = true
+            this.dialog.title = "新增波形";
+            this.dialog.type = "waveform";
+            this.dialog.body = true;
         },
         addOption() {
             switch (this.dialog.type) {
-                case 'category':
-                    var new_arr = this.dialog.items.filter(item => {
-                        return this.category_options.indexOf(item) < 0
-                    })
-                    this.category_options.push(...new_arr)
-                    break
-                case 'frequency':
-                    var new_arr = this.dialog.items.filter(item => {
-                        return this.frequency_options.indexOf(item) < 0
-                    })
-                    this.frequency_options.push(...new_arr)
-                    break
-                case 'waveform':
-                    var new_arr = this.dialog.items.filter(item => {
-                        return this.waveform_options.indexOf(item) < 0
-                    })
-                    this.waveform_options.push(...new_arr)
-                    break
+                case "category":
+                    var new_arr = this.dialog.items.filter((item) => {
+                        return this.category_options.indexOf(item) < 0;
+                    });
+                    this.category_options.push(...new_arr);
+                    break;
+                case "frequency":
+                    var new_arr = this.dialog.items.filter((item) => {
+                        return this.frequency_options.indexOf(item) < 0;
+                    });
+                    this.frequency_options.push(...new_arr);
+                    break;
+                case "waveform":
+                    var new_arr = this.dialog.items.filter((item) => {
+                        return this.waveform_options.indexOf(item) < 0;
+                    });
+                    this.waveform_options.push(...new_arr);
+                    break;
                 default:
-                    break
+                    break;
             }
-            this.dialog.items = []
-            this.dialog.body = false
+            this.dialog.items = [];
+            this.dialog.body = false;
         },
         onChange: function(event, item) {
-            console.log(event)
+            console.log(event);
             if (event != undefined) {
-                var reader = new FileReader()
-                var app = this
+                var reader = new FileReader();
+                var app = this;
                 reader.onload = function(event) {
-                    console.log(event)
-                    item.sound_src = event.target.result
-                }
-                reader.readAsDataURL(event)
+                    console.log(event);
+                    item.sound_src = event.target.result;
+                };
+                reader.readAsDataURL(event);
             }
         },
         playAudio(item) {
-            console.log(item.sound_src)
+            console.log(item.sound_src);
             if (item.sound_src != undefined && item.sound_src != null) {
-                this.audio_player.src = item.sound_src
-                this.audio_player.play()
+                this.audio_player.src = item.sound_src;
+                this.audio_player.play();
             }
         },
         saveAudioData() {
-            console.log('audio', this.audio)
+            console.log("audio", this.audio);
             apiManageAudio({
-                type: 'edit',
-                items: this.audio
-            }).then(res => {
-                console.log(res.data)
-            })
+                type: "edit",
+                items: this.audio,
+            }).then((res) => {
+                console.log(res.data);
+            });
         },
         addAudioData() {
             var emptydata = {
-                id: '-1',
-                audio_id: '',
+                id: "-1",
+                audio_id: "",
                 category: [],
-                created_time: '',
+                created_time: "",
                 frequency: [],
-                name: '',
-                pic_src: '',
-                sound_src: '',
-                waveform: ''
-            }
+                name: "",
+                pic_src: "",
+                sound_src: "",
+                waveform: "",
+            };
 
-            this.audio.splice(0, 0, emptydata)
+            this.audio.splice(0, 0, emptydata);
         },
         deleteAudioData(item) {
-            this.audio.splice(this.audio.indexOf(item), 1)
-        }
-    }
-}
+            this.audio.splice(this.audio.indexOf(item), 1);
+        },
+    },
+};
 </script>
 
 <style scoped>
