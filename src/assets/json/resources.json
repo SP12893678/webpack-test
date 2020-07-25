@@ -1,8 +1,21 @@
 {
     "game_start_page": [
+        "../src/assets/images/OLO2ED0.jpg",
+        "../src/assets/images/loadingbar.png",
         "../src/assets/images/game-start.jpg",
+        "../src/assets/images/role.jpg",
         "../src/assets/audio/brooming1.mp3",
-        "../src/assets/images/particle.png"
+        "../src/assets/images/particle.png",
+        "../static/sound/house/knocking_an_iron_door1.mp3",
+        "../static/sound/school/shrill_whistle1.mp3",
+        "../static/sound/animal/cat1a.mp3",
+        "../static/sound/animal/crow1.mp3",
+        "../static/sound/animal/dog_barking1.mp3",
+        "../static/sound/cook/cutting_a_onion3.mp3",
+        "../static/sound/animal/owl.mp3",
+        "../static/sound/cook/boiling1.mp3",
+        "../static/sound/cook/drinking1.mp3",
+        "../static/sound/cook/putting_a_bottle1.mp3"
     ],
     "creat_role_page": []
 }

@@ -1,24 +1,25 @@
-import "./style.css";
-import "babel-polyfill";
-import Vue from "vue";
-import vuetify from "@/js/plugins/vuetify";
-import router from "@/js/manage/router";
-// import axios from 'axios'
-// import VueAxios from 'vue-axios'
-import Manage from "Manage/Manage.vue";
+import './style.css'
+import 'babel-polyfill'
+import Vue from 'vue'
+import vuetify from '@/js/plugins/vuetify'
+import VueTour from 'vue-tour'
+import router from '@/js/manage/router'
+import Manage from 'Manage/Manage.vue'
 
-// Vue.use(VueAxios, axios)
+require('vue-tour/dist/vue-tour.css')
+
+Vue.use(VueTour)
 
 new Vue({
     vuetify,
     router,
-    el: "#app",
+    el: '#app',
     data() {
-        return {};
+        return {}
     },
     mounted() {
-        console.log("Vue run");
+        console.log('Vue run')
     },
     components: { Manage },
-    template: "<manage/>",
-});
+    template: '<manage/>',
+})

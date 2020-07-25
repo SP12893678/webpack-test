@@ -2,9 +2,7 @@
     <v-container fluid>
         <v-list-item two-line>
             <v-list-item-content>
-                <v-list-item-title class="jf-title pa-2"
-                    >學生帳戶</v-list-item-title
-                >
+                <v-list-item-title class="jf-title pa-2">學生帳戶</v-list-item-title>
             </v-list-item-content>
             <v-list-item-action class="ml-0 mb-0">
                 <v-btn @click="addOneUser" text>
@@ -24,12 +22,7 @@
                                 <v-icon>mdi-cloud-upload</v-icon>
                             </v-list-item-icon>
                             <v-list-item-title>檔案上傳</v-list-item-title>
-                            <input
-                                ref="uploader"
-                                @change="onFileChanged"
-                                type="file"
-                                hidden
-                            />
+                            <input ref="uploader" @change="onFileChanged" type="file" hidden />
                         </v-list-item>
                         <v-list-item link @click="setting.dialog = true">
                             <v-list-item-icon class="mr-2">
@@ -38,11 +31,7 @@
                             <v-list-item-title>上傳設定</v-list-item-title>
                         </v-list-item>
                         <v-divider></v-divider>
-                        <v-list-item
-                            :href="require('@/assets/xlsx/帳戶名單範例.xlsx')"
-                            link
-                            download
-                        >
+                        <v-list-item :href="require('@/assets/xlsx/帳戶名單範例.xlsx')" link download>
                             <v-list-item-icon class="mr-2">
                                 <v-icon>mdi-download</v-icon>
                             </v-list-item-icon>
@@ -60,23 +49,12 @@
         <v-divider></v-divider>
         <v-list-item two-line class="mt-4">
             <v-list-item-content>
-                <v-data-table
-                    :headers="user_header"
-                    :items="users"
-                    multi-sort
-                    class="elevation-1"
-                >
+                <v-data-table :headers="user_header" :items="users" multi-sort class="elevation-1">
                     <template v-slot:item.name="{ item }">
-                        <v-text-field
-                            v-model="item.name"
-                            clearable
-                        ></v-text-field>
+                        <v-text-field v-model="item.name" clearable></v-text-field>
                     </template>
                     <template v-slot:item.account="{ item }">
-                        <v-text-field
-                            v-model="item.account"
-                            clearable
-                        ></v-text-field>
+                        <v-text-field v-model="item.account" clearable></v-text-field>
                     </template>
                     <template v-slot:item.password="{ item }">
                         <v-text-field
@@ -89,18 +67,10 @@
                         ></v-text-field>
                     </template>
                     <template v-slot:item.email="{ item }">
-                        <v-text-field
-                            v-model="item.email"
-                            clearable
-                        ></v-text-field>
+                        <v-text-field v-model="item.email" clearable></v-text-field>
                     </template>
                     <template v-slot:item.tags="{ item }">
-                        <v-combobox
-                            v-model="item.tags"
-                            label="輸入完按Enter鍵插入"
-                            multiple
-                            small-chips
-                        ></v-combobox>
+                        <v-combobox v-model="item.tags" label="輸入完按Enter鍵插入" multiple small-chips></v-combobox>
                     </template>
                     <template v-slot:item.delete="{ item }">
                         <v-btn @click="deleteOneUser(item)" icon>
@@ -115,10 +85,7 @@
             <v-card>
                 <v-card-title>上傳設定</v-card-title>
                 <v-card-text>
-                    <v-switch
-                        v-model="setting.firstline"
-                        label="Excel第一列選取"
-                    ></v-switch>
+                    <v-switch v-model="setting.firstline" label="Excel第一列選取"></v-switch>
                 </v-card-text>
             </v-card>
         </v-dialog>
@@ -140,77 +107,77 @@
 </template>
 
 <script>
-import { apiManageExcel } from ".@/js/api";
+import { apiManageExcel } from '@/js/api'
 
 export default {
     data() {
         return {
             progress: {
                 dialog: false,
-                value: 0,
+                value: 0
             },
             search: null,
             file: null,
             setting: {
                 dialog: false,
-                firstline: true,
+                firstline: true
             },
             users: [],
             user_header: [
                 {
-                    text: "名稱",
-                    align: "start",
-                    value: "name",
+                    text: '名稱',
+                    align: 'start',
+                    value: 'name'
                 },
-                { text: "帳號", value: "account" },
-                { text: "密碼", value: "password", sortable: false },
-                { text: "信箱", value: "email" },
-                { text: "標籤", value: "tags" },
-                { text: "刪除", value: "delete", sortable: false },
-            ],
-        };
+                { text: '帳號', value: 'account' },
+                { text: '密碼', value: 'password', sortable: false },
+                { text: '信箱', value: 'email' },
+                { text: '標籤', value: 'tags' },
+                { text: '刪除', value: 'delete', sortable: false }
+            ]
+        }
     },
     mounted() {
-        console.log("Student editpage Page run");
+        console.log('Student editpage Page run')
     },
     methods: {
         uploadFileClick() {
-            this.$refs.uploader.click();
+            this.$refs.uploader.click()
         },
         onFileChanged(event) {
-            this.file = event.target.files[0];
-            console.log(this.file);
+            this.file = event.target.files[0]
+            console.log(this.file)
             if (this.file != undefined && this.file != null)
-                this.getExcelFileData();
+                this.getExcelFileData()
         },
         getExcelFileData: async function(params) {
-            var formData = new FormData();
-            formData.append("file", this.file);
-            console.log(formData);
+            var formData = new FormData()
+            formData.append('file', this.file)
+            console.log(formData)
             apiManageExcel(formData, {
                 headers: {
-                    "Content-Type": "multipart/form-data",
+                    'Content-Type': 'multipart/form-data'
                 },
-                params: { type: "upload_and_get_excel_data" },
-            }).then((res) => {
-                console.log(res.data);
-                var app = this;
+                params: { type: 'upload_and_get_excel_data' }
+            }).then(res => {
+                console.log(res.data)
+                var app = this
                 res.data.forEach((item, index) => {
-                    var user = {};
-                    user.name = item.A;
-                    user.account = item.B;
-                    user.password = item.C;
-                    user.email = item.D;
-                    user.tags = item.E.split(";");
-                    user.pwshow = false;
+                    var user = {}
+                    user.name = item.A
+                    user.account = item.B
+                    user.password = item.C
+                    user.email = item.D
+                    user.tags = item.E.split(';')
+                    user.pwshow = false
                     if (app.setting.firstline && index == 0) {
-                        app.users.push(user);
+                        app.users.push(user)
                     } else if (index != 0) {
-                        app.users.push(user);
+                        app.users.push(user)
                     }
-                });
-            });
-            console.log(123);
+                })
+            })
+            console.log(123)
         },
         addOneUser() {
             var user = {
@@ -219,23 +186,23 @@ export default {
                 password: null,
                 email: null,
                 tags: [],
-                pwshow: false,
-            };
-            this.users.push(user);
+                pwshow: false
+            }
+            this.users.push(user)
         },
         deleteOneUser(item) {
-            this.users.splice(this.users.indexOf(item), 1);
+            this.users.splice(this.users.indexOf(item), 1)
         },
         saveAccount() {
-            this.progress.dialog = true;
-            var app = this;
+            this.progress.dialog = true
+            var app = this
             var interval = setInterval(() => {
-                app.progress.value += Math.random() * 20;
-                if (app.progress.value >= 100) clearInterval(interval);
-            }, 1000);
-        },
-    },
-};
+                app.progress.value += Math.random() * 20
+                if (app.progress.value >= 100) clearInterval(interval)
+            }, 1000)
+        }
+    }
+}
 </script>
 
 <style scoped>

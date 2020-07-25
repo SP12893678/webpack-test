@@ -1,5 +1,6 @@
 import * as PIXI from 'pixi.js'
 import * as particles from 'pixi-particles'
+import { GlowFilter } from 'pixi-filters'
 import emitter_data from '@/assets/json/emitter-shot.json'
 
 /**
@@ -19,6 +20,22 @@ export default class Button extends PIXI.Container {
         this.setText()
         this.setMaskArea()
         this.setParticles()
+        this.setMouseEvent()
+    }
+
+    setMouseEvent() {
+        this.interactive = true
+        this.buttonMode = true
+
+        this.click = () => {
+            console.log('container', this)
+        }
+        this.mouseover = () => {
+            this.border.filters = [new GlowFilter(25, 1.6, 0)]
+        }
+        this.mouseout = () => {
+            this.border.filters = []
+        }
     }
 
     setBorder() {
@@ -30,6 +47,7 @@ export default class Button extends PIXI.Container {
         border.lineTo(0, this.y_height)
         border.lineTo(this.offset, 0)
         this.addChild(border)
+        this.border = border
     }
 
     setText() {
@@ -42,6 +60,7 @@ export default class Button extends PIXI.Container {
         })
         text.position.set((this.x_width + this.offset - text.width) / 2, (this.y_height - text.height) / 2)
         this.addChild(text)
+        this.text = text
     }
 
     setMaskArea() {
@@ -66,7 +85,7 @@ export default class Button extends PIXI.Container {
             emitter_data
         )
         var elapsed = Date.now()
-        var update = function () {
+        var update = function() {
             requestAnimationFrame(update)
             var now = Date.now()
 
