@@ -1,11 +1,13 @@
 import * as PIXI from 'pixi.js'
 import Scene from './Scene'
 
-export default class ScenesManager {
+class ScenesManager {
     constructor() {
         this.scenes = {}
         this.currentScene = null
         this.renderer = null
+        this.defaultWidth = 1000
+        this.defaultHeight = 625
     }
 
     create(width, height) {
@@ -16,9 +18,10 @@ export default class ScenesManager {
             width: width,
             height: height,
         })
+        // this.renderer.autoResize = true
+        // this._rescale()
+        // window.addEventListener('resize', this._rescale.bind(this), false)
 
-        // this.renderer = PIXI.autoDetectRenderer(width, height)
-        // document.body.appendChild(this.renderer.view)
         this.loop()
         return this
     }
@@ -47,4 +50,14 @@ export default class ScenesManager {
         }
         return false
     }
+
+    _rescale() {
+        this.ratio = Math.min(window.innerWidth / this.defaultWidth, window.innerHeight / this.defaultHeight)
+        this.width = this.defaultWidth * this.ratio
+        this.height = this.defaultHeight * this.ratio
+        console.log(this.width, this.height)
+        this.renderer.resize(this.width, this.height)
+    }
 }
+
+export default new ScenesManager()

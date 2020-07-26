@@ -1,6 +1,8 @@
 import * as PIXI from 'pixi.js'
 import { GlowFilter } from 'pixi-filters'
-import Scene from '../engine/Scene'
+import Scene from '@/js/game/engine/Scene'
+import ResourcesManager from '@/js/game/engine/ResourcesManager'
+// import loadingBackground from '@/assets/images/OLO2ED0.jpg'
 
 let Application = PIXI.Application,
     Container = PIXI.Container,
@@ -18,7 +20,9 @@ export default class LoadingScene extends Scene {
     }
 
     setBackground(width) {
-        var background = new Sprite(resources['../src/assets/images/OLO2ED0.jpg'].texture)
+        console.log(ResourcesManager)
+        var background = new Sprite(resources[ResourcesManager.loading_bg].texture)
+        // var background = new Sprite(PIXI.Texture.fromImage(img))
         var scale = width / background.width
         background.scale.set(scale, scale)
         this.addChild(background)
@@ -38,7 +42,7 @@ export default class LoadingScene extends Scene {
     }
 
     setLoadingBar(width, height) {
-        let bar = new Sprite(resources['../src/assets/images/loadingbar.png'].texture)
+        let bar = new Sprite(resources[ResourcesManager.loading_bar].texture)
         bar.filters = [new GlowFilter(10, 1.6, 0)]
         var scale = width / (bar.width - 100)
         bar.scale.set(scale, scale)

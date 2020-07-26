@@ -1,11 +1,12 @@
 <template>
-    <v-dialog v-model="getDialog" width="800">
+    <v-dialog v-model="getDialog" max-width="1000">
         <v-card>
             <v-card-title>說明手冊</v-card-title>
             <v-carousel
                 v-model="value"
+                height="600"
+                max-height="600"
                 cycle
-                height="400"
                 hide-delimiter-background
                 show-arrows-on-hover
             >
@@ -31,10 +32,10 @@ export default {
                 'warning',
                 'pink darken-2',
                 'red lighten-1',
-                'deep-purple accent-4'
+                'deep-purple accent-4',
             ],
             slides: ['First', 'Second', 'Third', 'Fourth', 'Fifth'],
-            value: 0
+            value: 0,
         }
     },
     mounted() {
@@ -42,15 +43,15 @@ export default {
     },
     computed: {
         getDialog: {
-            get: function() {
+            get: function () {
                 return this.dialog
             },
-            set: function(value) {
+            set: function (value) {
                 this.$emit('getDialog', value)
                 this.value = 0
-            }
-        }
-    }
+            },
+        },
+    },
 }
 </script>
 

@@ -1,7 +1,8 @@
 import * as PIXI from 'pixi.js'
-import Scene from '../engine/Scene'
-import Button from '../component/button'
-import CreatRoleScene from './CreatRoleScene'
+import Scene from '@/js/game/engine/Scene'
+import Events from '@/js/game/Events'
+import Button from 'Component/button'
+import ResourcesManager from '@/js/game/engine/ResourcesManager'
 
 let Application = PIXI.Application,
     Container = PIXI.Container,
@@ -18,7 +19,7 @@ export default class GameStartScene extends Scene {
     }
 
     setBackground(width) {
-        var background = new Sprite(resources['../src/assets/images/game-start.jpg'].texture)
+        var background = new Sprite(resources[ResourcesManager.game_start].texture)
         var scale = width / background.width
         background.scale.set(scale, scale)
         this.addChild(background)
@@ -28,8 +29,7 @@ export default class GameStartScene extends Scene {
         var button = new Button(150, 50, 20)
         button.position.set(100, 400)
         button.click = () => {
-            events.emit('creat', { id: 'creat_role', scene: new CreatRoleScene(1000, 625) })
-            events.emit('goto', 'creat_role')
+            Events.emit('goto', { id: 'create_role', animate: 'fadeIn' })
         }
         this.addChild(button)
         this.button = button

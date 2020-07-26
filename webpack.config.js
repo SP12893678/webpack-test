@@ -60,7 +60,6 @@ module.exports = {
                 test: /\.(png|jpe?g|gif)$/i,
                 use: [
                     {
-                        // 直接配置 url-loader 就好，超過上限的資源會自動 fallback 給 file-loader
                         loader: 'url-loader',
                         options: {
                             name: 'assets/images/[hash:7].[ext]',
@@ -106,6 +105,8 @@ module.exports = {
             vue: 'vue/dist/vue.js',
             '@': path.resolve('src'),
             Manage: path.resolve('./src/components/manage'),
+            Scene: path.resolve('./src/js/game/scene'),
+            Component: path.resolve('./src/js/game/component'),
         },
     },
 }

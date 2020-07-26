@@ -5,7 +5,13 @@
                 <v-app-bar-nav-icon @click="nav_drawer = true" data-v-step="0"></v-app-bar-nav-icon>
                 <v-toolbar-title>情境式環境音管理平台</v-toolbar-title>
                 <v-spacer></v-spacer>
-                <v-menu v-model="notify" :close-on-content-click="false" nudge-width="300" max-height="400" offset-y>
+                <v-menu
+                    v-model="notify"
+                    :close-on-content-click="false"
+                    nudge-width="300"
+                    max-height="400"
+                    offset-y
+                >
                     <template v-slot:activator="{ on, attrs }">
                         <v-btn v-bind="attrs" v-on="on" icon>
                             <v-badge color="pink" dot>
@@ -121,7 +127,7 @@
         </div>
         <router-view :passdata="passdata" @passdata="passdata = $event"></router-view>
         <v-description-manual :dialog.sync="dialog" v-on:getDialog="changeDialog"></v-description-manual>
-        <v-tour name="myTour" :steps="steps"></v-tour>
+        <v-tour name="homepage" :steps="steps"></v-tour>
     </v-app>
 </template>
 
@@ -129,7 +135,6 @@
 import vDescriptionManual from './Description-manual.vue'
 
 export default {
-    name: 'my-tour',
     components: {
         vDescriptionManual,
     },
@@ -152,14 +157,14 @@ export default {
                     header: {
                         title: '幫助選單按鈕',
                     },
-                    content: '內有說明手冊、操作導覽、客服詢問功能，可幫助了解管理平台以及解決疑難雜症',
+                    content:
+                        '內有說明手冊、操作導覽、客服詢問功能，可幫助了解管理平台以及解決疑難雜症',
                 },
             ],
         }
     },
     mounted() {
-        console.log('Manage Page run')
-        this.$tours['myTour'].start()
+        console.log(this.$route.name)
         /**Todo
          * requset personal data and update name and identity
          * else router push to Website Index
@@ -173,7 +178,7 @@ export default {
             this.dialog = val
         },
         callGuideTour() {
-            this.$tours['myTour'].start()
+            this.$tours[this.$route.name].start()
         },
     },
 }

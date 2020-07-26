@@ -3,9 +3,7 @@
         <!--情境教材標題 & 搜尋欄 & 新增情境教材按鈕 -->
         <v-list-item two-line>
             <v-list-item-content>
-                <v-list-item-title class="jf-title pa-2"
-                    >情境教材</v-list-item-title
-                >
+                <v-list-item-title class="jf-title pa-2">情境教材</v-list-item-title>
             </v-list-item-content>
             <v-text-field
                 v-model="enviro_cards.search"
@@ -15,7 +13,9 @@
                 hide-details
             ></v-text-field>
             <v-list-item-action>
-                <v-btn> <v-icon left>mdi-pencil-plus</v-icon>新增 </v-btn>
+                <v-btn data-v-step="Enviroment-dashboard-2">
+                    <v-icon left>mdi-pencil-plus</v-icon>新增
+                </v-btn>
             </v-list-item-action>
         </v-list-item>
 
@@ -42,10 +42,7 @@
                     width="300"
                     max-width="300"
                 >
-                    <v-skeleton-loader
-                        class="mx-auto"
-                        type="card"
-                    ></v-skeleton-loader>
+                    <v-skeleton-loader class="mx-auto" type="card"></v-skeleton-loader>
                 </v-card>
 
                 <!--情境教材卡片-->
@@ -61,37 +58,26 @@
                         class="ma-4"
                         max-width="300"
                     >
-                        <v-img
-                            :src="item.background_src"
-                            height="180px"
-                        ></v-img>
+                        <v-img :src="item.background_src" height="180px"></v-img>
                         <v-card-title>
                             {{ item.name }}
                             <v-spacer></v-spacer>
                             <v-chip class="ma-0" color="orange" outlined small>
-                                <v-icon left
-                                    >mdi-format-list-bulleted-type</v-icon
-                                >
+                                <v-icon left>mdi-format-list-bulleted-type</v-icon>
                                 {{ item.category }}
                             </v-chip>
                         </v-card-title>
-                        <v-card-subtitle class="pb-1">{{
+                        <v-card-subtitle class="pb-1">
+                            {{
                             item.created_time
-                        }}</v-card-subtitle>
+                            }}
+                        </v-card-subtitle>
                         <v-card-actions>
-                            <v-btn
-                                @click.prevent="goToEditPage(item.id)"
-                                color="blue"
-                                text
-                            >
+                            <v-btn @click.prevent="goToEditPage(item.id)" color="blue" text>
                                 <v-icon left>mdi-image-edit</v-icon>編輯
                             </v-btn>
                             <v-spacer></v-spacer>
-                            <v-btn
-                                @click="enviro_cards.delete_dialog = true"
-                                color="red"
-                                icon
-                            >
+                            <v-btn @click="enviro_cards.delete_dialog = true" color="red" icon>
                                 <v-icon>mdi-delete</v-icon>
                             </v-btn>
                         </v-card-actions>
@@ -103,49 +89,61 @@
         <!--情境教材刪除提示框 -->
         <v-dialog v-model="enviro_cards.delete_dialog" max-width="400">
             <v-card>
-                <v-card-title class="headline"
-                    >你確定要刪除此教材?</v-card-title
-                >
+                <v-card-title class="headline">你確定要刪除此教材?</v-card-title>
                 <v-card-text>如果確認刪除後，將無法在復原。</v-card-text>
                 <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn
-                        @click="enviro_cards.delete_dialog = false"
-                        color="blue darken-1"
-                        text
-                        >否</v-btn
-                    >
-                    <v-btn
-                        @click="enviro_cards.delete_dialog = false"
-                        color="red darken-1"
-                        text
-                        >是</v-btn
-                    >
+                    <v-btn @click="enviro_cards.delete_dialog = false" color="blue darken-1" text>否</v-btn>
+                    <v-btn @click="enviro_cards.delete_dialog = false" color="red darken-1" text>是</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
+
+        <v-tour :name="this.$route.name" :steps="steps"></v-tour>
     </v-container>
 </template>
 
 <script>
-import { apiManageEnviroment } from "@/js/api";
+import { apiManageEnviroment } from '@/js/api'
 
 export default {
     data() {
         return {
             enviro: [],
             enviro_cards: {
-                search: "",
+                search: '',
                 loading: true,
                 page: 1,
                 delete_dialog: false,
             },
-        };
+            steps: [
+                {
+                    target: '[data-v-step="Enviroment-dashboard-1"]',
+                    header: {
+                        title: '情境教材搜尋欄',
+                    },
+                    content: `22222`,
+                    params: {
+                        placement: 'top',
+                    },
+                },
+                {
+                    target: '[data-v-step="Enviroment-dashboard-2"]',
+                    header: {
+                        title: '幫助選單按鈕',
+                    },
+                    content:
+                        '內有說明手冊、操作導覽、客服詢問功能，可幫助了解管理平台以及解決疑難雜症',
+                    params: {
+                        placement: 'top',
+                    },
+                },
+            ],
+        }
     },
     async mounted() {
-        console.log("Enviroment-dashboard Page run");
-
-        await this.getEnviroData();
+        console.log(this.$route.name)
+        await this.getEnviroData()
 
         /**模擬情境數量 */
         // for (let index = 0; index < 10; index++) {
@@ -154,62 +152,62 @@ export default {
 
         /**模擬載入狀態 */
         setTimeout(() => {
-            this.enviro_cards.loading = false;
-        }, 1500);
+            this.enviro_cards.loading = false
+        }, 1500)
     },
     computed: {
         /**取得符合條件(搜尋條件 & 當前分頁)的情境教材物件 */
         getEnviroCards() {
-            var app = this;
+            var app = this
             var tmp = this.enviro.filter((item) => {
                 return (
                     item.name.indexOf(app.enviro_cards.search) >= 0 ||
                     item.category.indexOf(app.enviro_cards.search) >= 0 ||
                     item.created_time.indexOf(app.enviro_cards.search) >= 0
-                );
-            });
+                )
+            })
             return tmp.filter((item, index) => {
                 return (
                     index < 10 * app.enviro_cards.page &&
                     index >= 10 * (app.enviro_cards.page - 1)
-                );
-            });
+                )
+            })
         },
         /**取得分頁數量(每頁情境數量以10為限) */
         getPaginationPages() {
-            var app = this;
+            var app = this
             var tmp = this.enviro.filter((item) => {
                 return (
                     item.name.indexOf(app.enviro_cards.search) >= 0 ||
                     item.category.indexOf(app.enviro_cards.search) >= 0 ||
                     item.created_time.indexOf(app.enviro_cards.search) >= 0
-                );
-            });
-            return Math.ceil(tmp.length / 10);
+                )
+            })
+            return Math.ceil(tmp.length / 10)
         },
     },
     methods: {
         /**前往該情境教材的編輯頁面 */
         goToEditPage(id) {
-            var obj = { enviro: { id: id } };
-            this.$emit("passdata", obj);
-            this.$router.push("/enviroment-edit");
+            var obj = { enviro: { id: id } }
+            this.$emit('passdata', obj)
+            this.$router.push('/enviroment-edit')
         },
         /**請求後端並取得情境教材
          * @async
          */
         getEnviroData() {
-            return apiManageEnviroment({ type: "get", amount: "all" })
+            return apiManageEnviroment({ type: 'get', amount: 'all' })
                 .then((res) => {
-                    console.log("enviro data", res.data);
-                    this.enviro = res.data;
+                    console.log('enviro data', res.data)
+                    this.enviro = res.data
                 })
                 .catch((error) => {
-                    console.error(error);
-                });
+                    console.error(error)
+                })
         },
     },
-};
+}
 </script>
 
 <style scoped>

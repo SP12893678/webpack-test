@@ -2,6 +2,7 @@ import * as PIXI from 'pixi.js'
 import * as particles from 'pixi-particles'
 import { GlowFilter } from 'pixi-filters'
 import emitter_data from '@/assets/json/emitter-shot.json'
+import ResourcesManager from '@/js/game/engine/ResourcesManager'
 
 /**
  * A button component that's shape is Parallelogram
@@ -58,7 +59,8 @@ export default class Button extends PIXI.Container {
             align: 'center',
             fontWeight: '400',
         })
-        text.position.set((this.x_width + this.offset - text.width) / 2, (this.y_height - text.height) / 2)
+        text.anchor.set(0.5, 0.5)
+        text.position.set((this.x_width + this.offset) / 2, this.y_height / 2)
         this.addChild(text)
         this.text = text
     }
@@ -79,11 +81,7 @@ export default class Button extends PIXI.Container {
     setParticles() {
         emitter_data.pos.x = -300
         emitter_data.pos.y = 50
-        var emitter = new particles.Emitter(
-            this,
-            [PIXI.Texture.fromImage('../src/assets/images/particle.png')],
-            emitter_data
-        )
+        var emitter = new particles.Emitter(this, [PIXI.Texture.fromImage(ResourcesManager.particles)], emitter_data)
         var elapsed = Date.now()
         var update = function() {
             requestAnimationFrame(update)
