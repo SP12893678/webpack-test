@@ -3,6 +3,7 @@ import Scene from '@/js/game/engine/Scene'
 import Events from '@/js/game/Events'
 import Button from 'Component/button'
 import ResourcesManager from '@/js/game/engine/ResourcesManager'
+import ScenesManager from '@/js/game/engine/ScenesManager'
 
 let Application = PIXI.Application,
     Container = PIXI.Container,
@@ -12,15 +13,15 @@ let Application = PIXI.Application,
     Sprite = PIXI.Sprite
 
 export default class GameStartScene extends Scene {
-    constructor(width, height) {
+    constructor() {
         super()
-        this.setBackground(width, height)
+        this.setBackground()
         this.setButton()
     }
 
-    setBackground(width) {
+    setBackground() {
         var background = new Sprite(resources[ResourcesManager.game_start].texture)
-        var scale = width / background.width
+        var scale = ScenesManager.defaultWidth / background.width
         background.scale.set(scale, scale)
         this.addChild(background)
     }

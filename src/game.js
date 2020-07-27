@@ -13,17 +13,12 @@ PixiPlugin.registerPIXI(PIXI)
 /**----------------------------- */
 ;(function() {
     function loadProgressHandler(loader, resource) {
-        if (
-            resources[ResourcesManager.loading_bg].texture &&
-            resources[ResourcesManager.loading_bar].texture &&
-            scenesManager.scenes['loading'] == null
-        )
-            Events.emit('goto', { id: 'loading' })
+        if (resources[ResourcesManager.loading_bg].texture && resources[ResourcesManager.loading_bar].texture && scenesManager.scenes['loading'] == null) Events.emit('goto', { id: 'loading' })
         if (scenesManager.scenes['loading'] != null) {
             scenesManager.scenes['loading'].text.text = '加載資源' + (Math.ceil(loader.progress) | 0) + '%'
             gsap.set(scenesManager.scenes['loading'].bar, {
                 pixi: {
-                    positionX: -scenesManager.scenes['loading'].bar.width + (Math.ceil(loader.progress) * 1000) / 100,
+                    positionX: -scenesManager.scenes['loading'].bar.width + (Math.ceil(loader.progress) * ScenesManager.defaultWidth) / 100,
                 },
             })
         }
@@ -40,6 +35,8 @@ PixiPlugin.registerPIXI(PIXI)
     }
 
     /**--------------------------------------------------- */
+    /**開啟全螢幕 */
+    // document.documentElement.requestFullscreen()
 
     let Application = PIXI.Application,
         Container = PIXI.Container,

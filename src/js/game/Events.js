@@ -19,16 +19,16 @@ events.on('goto', (val) => {
     else {
         switch (val.id) {
             case 'loading':
-                ScenesManager.createScene(val.id, new LoadingScene(1000, 625))
+                ScenesManager.createScene(val.id, new LoadingScene())
                 break
             case 'game_start':
-                ScenesManager.createScene(val.id, new GameStartScene(1000, 625))
+                ScenesManager.createScene(val.id, new GameStartScene())
                 break
             case 'create_role':
-                ScenesManager.createScene(val.id, new CreateRoleScene(1000, 625))
+                ScenesManager.createScene(val.id, new CreateRoleScene())
                 break
             case 'game_main':
-                ScenesManager.createScene(val.id, new GameMainScene(1000, 625))
+                ScenesManager.createScene(val.id, new GameMainScene())
                 break
             default:
                 break

@@ -6,21 +6,21 @@ class ScenesManager {
         this.scenes = {}
         this.currentScene = null
         this.renderer = null
-        this.defaultWidth = 1000
-        this.defaultHeight = 625
+        this.defaultWidth = 1600
+        this.defaultHeight = 900
     }
 
-    create(width, height) {
+    create() {
         if (this.renderer) return this
 
         this.renderer = new PIXI.autoDetectRenderer({
             view: document.getElementById('app'),
-            width: width,
-            height: height,
+            width: this.defaultWidth,
+            height: this.defaultHeight,
         })
-        // this.renderer.autoResize = true
-        // this._rescale()
-        // window.addEventListener('resize', this._rescale.bind(this), false)
+        this.renderer.autoResize = true
+        this._rescale()
+        window.addEventListener('resize', this._rescale.bind(this), false)
 
         this.loop()
         return this
@@ -56,7 +56,8 @@ class ScenesManager {
         this.width = this.defaultWidth * this.ratio
         this.height = this.defaultHeight * this.ratio
         console.log(this.width, this.height)
-        this.renderer.resize(this.width, this.height)
+        this.renderer.view.style.width = this.width + 'px'
+        this.renderer.view.style.height = this.height + 'px'
     }
 }
 

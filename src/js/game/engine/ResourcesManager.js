@@ -6,6 +6,8 @@ import sound004 from '@/assets/images/particle.png'
 import sound005 from '@/assets/images/loadingbar.png'
 import sound006 from '@/assets/images/OLO2ED0.jpg'
 import sound007 from '@/assets/images/OLO2ED0.jpg'
+import menu from '@/assets/images/menu001.png'
+import menu_btn from '@/assets/images/menu-btn.png'
 
 const resources = {
     loading_bg: loadingBackground,
@@ -16,6 +18,8 @@ const resources = {
     loading_bar: sound005,
     sound006: sound006,
     sound007: sound007,
+    menu: menu,
+    menu_btn: menu_btn,
 }
 
 export default resources

@@ -2,7 +2,9 @@ import * as PIXI from 'pixi.js'
 import Scene from '@/js/game/engine/Scene'
 import Events from '@/js/game/Events'
 import Button from 'Component/button'
+import Dialog from 'Component/dialog'
 import ResourcesManager from '@/js/game/engine/ResourcesManager'
+import ScenesManager from '@/js/game/engine/ScenesManager'
 
 let Application = PIXI.Application,
     Container = PIXI.Container,
@@ -12,15 +14,16 @@ let Application = PIXI.Application,
     Sprite = PIXI.Sprite
 
 export default class CreateRoleScene extends Scene {
-    constructor(width, height) {
+    constructor() {
         super()
-        this.setBackground(width, height)
+        this.setBackground()
         this.setButton()
+        // this.setDialog()
     }
 
-    setBackground(width) {
+    setBackground() {
         var background = new Sprite(resources[ResourcesManager.create_role].texture)
-        var scale = width / background.width
+        var scale = ScenesManager.defaultWidth / background.width
         background.scale.set(scale, scale)
         this.addChild(background)
     }
@@ -32,10 +35,15 @@ export default class CreateRoleScene extends Scene {
         button.position.set(500, 100)
         button.click = () => {
             Events.emit('goto', { id: 'game_main', animate: 'fadeIn' })
-            // events.emit('goto', 'game_main')
         }
         this.addChild(button)
         this.button = button
+    }
+
+    setDialog() {
+        var dialog = new Dialog()
+        this.addChild(dialog)
+        this.dialog = dialog
     }
 
     update() {

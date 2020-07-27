@@ -5,21 +5,9 @@
             <v-card-title class="jf-title">物件列表</v-card-title>
             <v-divider></v-divider>
             <v-slide-group v-model="model" mandatory show-arrows center-active>
-                <v-slide-item v-for="(object,index) in objects" v-slot:default="{ active, toggle }">
-                    <v-card
-                        @click="clickObject(index)"
-                        :color="active ? 'primary' : 'grey lighten-1'"
-                        class="ma-4"
-                        height="100"
-                        width="100"
-                    >
-                        <v-img
-                            :src="object.pic_src"
-                            max-height="100"
-                            min-height="100"
-                            min-width="100"
-                            contain
-                        ></v-img>
+                <v-slide-item v-for="(object, index) in objects" v-slot:default="{ active, toggle }">
+                    <v-card @click="clickObject(index)" :color="active ? 'primary' : 'grey lighten-1'" class="ma-4" height="100" width="100">
+                        <v-img :src="object.pic_src" max-height="100" min-height="100" min-width="100" contain></v-img>
                     </v-card>
                 </v-slide-item>
             </v-slide-group>
@@ -46,35 +34,17 @@
                     <v-divider></v-divider>
                     <v-list-item>
                         <v-list-item-content>
-                            <v-text-field
-                                v-model="enviro.name"
-                                label="情境名稱"
-                                outlined
-                                clearable
-                                hide-details
-                            ></v-text-field>
+                            <v-text-field v-model="enviro.name" label="情境名稱" outlined clearable hide-details></v-text-field>
                         </v-list-item-content>
                     </v-list-item>
                     <v-list-item>
                         <v-list-item-content>
-                            <v-select
-                                v-model="enviro.category"
-                                :items="audio_type_arr"
-                                label="情境類別"
-                                dense
-                                outlined
-                                hide-details
-                            ></v-select>
+                            <v-select v-model="enviro.category" :items="audio_type_arr" label="情境類別" dense outlined hide-details></v-select>
                         </v-list-item-content>
                     </v-list-item>
                     <v-list-item>
                         <v-list-item-content>
-                            <v-btn
-                                @click="background_img_profile.dialog = true"
-                                class="mb-4"
-                                color="secondary"
-                                block
-                            >選擇情境背景</v-btn>
+                            <v-btn @click="background_img_profile.dialog = true" class="mb-4" color="secondary" block>選擇情境背景</v-btn>
                         </v-list-item-content>
                     </v-list-item>
                 </v-list-group>
@@ -94,102 +64,34 @@
                                 </v-col>
                             </v-row>
 
-                            <v-text-field
-                                v-model="select_object.name"
-                                label="物件名稱"
-                                dense
-                                outlined
-                                clearable
-                                hide-details
-                            ></v-text-field>
+                            <v-text-field v-model="select_object.name" label="物件名稱" dense outlined clearable hide-details></v-text-field>
                             <v-row class="mt-2">
                                 <v-col>
-                                    <v-text-field
-                                        v-model="select_object.position.x"
-                                        label="X軸位置"
-                                        dense
-                                        outlined
-                                        hide-details
-                                    ></v-text-field>
+                                    <v-text-field v-model="select_object.position.x" label="X軸位置" dense outlined hide-details></v-text-field>
                                 </v-col>
                                 <v-col>
-                                    <v-text-field
-                                        v-model="select_object.position.y"
-                                        label="Y軸位置"
-                                        dense
-                                        outlined
-                                        hide-details
-                                    ></v-text-field>
+                                    <v-text-field v-model="select_object.position.y" label="Y軸位置" dense outlined hide-details></v-text-field>
                                 </v-col>
                             </v-row>
-                            <v-btn
-                                @click="object_img_profile.dialog = true"
-                                class="mt-2 mb-2"
-                                color="secondary"
-                                block
-                            >選擇物件圖片</v-btn>
-                            <v-slider
-                                v-model="select_object.scale"
-                                max="20"
-                                min="0.0001"
-                                step="0.0001"
-                                class="mb-3 mt-3"
-                                prepend-icon="mdi-aspect-ratio"
-                                hide-details
-                            >
+                            <v-btn @click="object_img_profile.dialog = true" class="mt-2 mb-2" color="secondary" block>選擇物件圖片</v-btn>
+                            <v-slider v-model="select_object.scale" max="20" min="0.0001" step="0.0001" class="mb-3 mt-3" prepend-icon="mdi-aspect-ratio" hide-details>
                                 <template v-slot:append>
-                                    <v-text-field
-                                        v-model="select_object.scale"
-                                        type="number"
-                                        class="mt-0 pt-0"
-                                        style="width: 60px"
-                                        single-line
-                                        hide-details
-                                    ></v-text-field>
+                                    <v-text-field v-model="select_object.scale" type="number" class="mt-0 pt-0" style="width: 60px" single-line hide-details></v-text-field>
                                 </template>
                             </v-slider>
 
-                            <v-slider
-                                v-model="select_object.degree"
-                                min="0"
-                                max="360"
-                                prepend-icon="mdi-format-rotate-90"
-                                hide-details
-                            >
+                            <v-slider v-model="select_object.degree" min="0" max="360" prepend-icon="mdi-format-rotate-90" hide-details>
                                 <template v-slot:append>
-                                    <v-text-field
-                                        v-model="select_object.degree"
-                                        type="number"
-                                        class="mt-0 pt-0"
-                                        style="width: 60px"
-                                        hide-details
-                                        single-line
-                                    ></v-text-field>
+                                    <v-text-field v-model="select_object.degree" type="number" class="mt-0 pt-0" style="width: 60px" hide-details single-line></v-text-field>
                                 </template>
                             </v-slider>
 
                             <v-row no-gutters class="mb-4 mt-4">
                                 <v-col cols="12" sm="5" class="mr-2">
-                                    <v-select
-                                        v-model="audio_type"
-                                        :items="audio_type_arr"
-                                        label="聲音類別"
-                                        dense
-                                        outlined
-                                        hide-details
-                                    ></v-select>
+                                    <v-select v-model="audio_type" :items="audio_type_arr" label="聲音類別" dense outlined hide-details></v-select>
                                 </v-col>
                                 <v-col cols="12" sm="5" class="mr-0">
-                                    <v-select
-                                        v-model="select_object.audio"
-                                        item-text="name"
-                                        :items="audioName"
-                                        label="聲音名稱"
-                                        return-object
-                                        dense
-                                        outlined
-                                        hide-detail
-                                    ></v-select>
+                                    <v-select v-model="select_object.audio" item-text="name" :items="audioName" label="聲音名稱" return-object dense outlined hide-detail></v-select>
                                 </v-col>
                                 <v-col cols="12" sm="1">
                                     <v-btn icon>
@@ -211,12 +113,7 @@
                         <v-icon color="grey lighten-1">mdi-check</v-icon>
                     </v-btn>
                 </v-card-title>
-                <v-tabs
-                    v-model="object_img_profile.tab"
-                    background-color="transparent"
-                    color="basil"
-                    grow
-                >
+                <v-tabs v-model="object_img_profile.tab" background-color="transparent" color="basil" grow>
                     <v-tab>雲端</v-tab>
                     <v-tab>從電腦上傳</v-tab>
                 </v-tabs>
@@ -226,37 +123,19 @@
                             <v-container fluid>
                                 <v-item-group v-model="object_img_profile.cloud_select" mandatory>
                                     <v-row>
-                                        <v-col
-                                            v-for="(item, i) in object_img_profile.cloud_img"
-                                            :key="i"
-                                            md="auto"
-                                        >
-                                            <v-item
-                                                v-slot:default="{ active, toggle }"
-                                                :value="item"
-                                            >
-                                                <v-card
-                                                    :ripple="{ class: 'white--text' }"
-                                                    min-width="100"
-                                                    min-height="150"
-                                                    max-width="200"
-                                                    max-height="150"
-                                                >
+                                        <v-col v-for="(item, i) in object_img_profile.cloud_img" :key="i" md="auto">
+                                            <v-item v-slot:default="{ active, toggle }" :value="item">
+                                                <v-card :ripple="{ class: 'white--text' }" min-width="100" min-height="150" max-width="200" max-height="150">
                                                     <v-img
                                                         @click="toggle"
                                                         :src="item"
-                                                        :class="active?'border text-right pa-2':' text-right pa-2'"
+                                                        :class="active ? 'border text-right pa-2' : ' text-right pa-2'"
                                                         max-height="150"
                                                         min-height="150"
                                                         min-width="100"
                                                         contain
                                                     >
-                                                        <v-overlay
-                                                            v-if="active"
-                                                            transition="fade-transition"
-                                                            color="rgba(100, 100, 255, 0.5)"
-                                                            absolute
-                                                        ></v-overlay>
+                                                        <v-overlay v-if="active" transition="fade-transition" color="rgba(100, 100, 255, 0.5)" absolute></v-overlay>
                                                     </v-img>
                                                 </v-card>
                                             </v-item>
@@ -270,7 +149,7 @@
                         <v-card>
                             <v-file-input
                                 v-model="object_img_profile.file_input"
-                                @change="fileOnChange($event,'object')"
+                                @change="fileOnChange($event, 'object')"
                                 class="ma-2"
                                 color="deep-purple accent-4"
                                 label="File input"
@@ -282,54 +161,27 @@
                                 outlined
                             >
                                 <template v-slot:selection="{ index, text }">
-                                    <v-chip
-                                        v-if="index < 2"
-                                        color="deep-purple accent-4"
-                                        dark
-                                        label
-                                        small
-                                    >{{ text }}</v-chip>
+                                    <v-chip v-if="index < 2" color="deep-purple accent-4" dark label small>{{ text }}</v-chip>
 
-                                    <span
-                                        v-else-if="index === 2"
-                                        class="overline grey--text text--darken-3 mx-2"
-                                    >+{{ object_img_profile.file_input.length - 2 }} File(s)</span>
+                                    <span v-else-if="index === 2" class="overline grey--text text--darken-3 mx-2">+{{ object_img_profile.file_input.length - 2 }} File(s)</span>
                                 </template>
                             </v-file-input>
                             <v-container fluid>
                                 <v-item-group v-model="object_img_profile.local_select" mandatory>
                                     <v-row>
-                                        <v-col
-                                            v-for="(item, i) in object_img_profile.local_img"
-                                            :key="i"
-                                            md="auto"
-                                        >
-                                            <v-item
-                                                v-slot:default="{ active, toggle }"
-                                                :value="item"
-                                            >
-                                                <v-card
-                                                    :ripple="{ class: 'white--text' }"
-                                                    min-width="100"
-                                                    min-height="150"
-                                                    max-width="200"
-                                                    max-height="150"
-                                                >
+                                        <v-col v-for="(item, i) in object_img_profile.local_img" :key="i" md="auto">
+                                            <v-item v-slot:default="{ active, toggle }" :value="item">
+                                                <v-card :ripple="{ class: 'white--text' }" min-width="100" min-height="150" max-width="200" max-height="150">
                                                     <v-img
                                                         @click="toggle"
                                                         :src="item"
-                                                        :class="active?'border text-right pa-2':' text-right pa-2'"
+                                                        :class="active ? 'border text-right pa-2' : ' text-right pa-2'"
                                                         max-height="150"
                                                         min-height="150"
                                                         min-width="100"
                                                         contain
                                                     >
-                                                        <v-overlay
-                                                            v-if="active"
-                                                            transition="fade-transition"
-                                                            color="rgba(100, 100, 255, 0.5)"
-                                                            absolute
-                                                        ></v-overlay>
+                                                        <v-overlay v-if="active" transition="fade-transition" color="rgba(100, 100, 255, 0.5)" absolute></v-overlay>
                                                     </v-img>
                                                 </v-card>
                                             </v-item>
@@ -342,12 +194,7 @@
                 </v-tabs-items>
             </v-card>
         </v-dialog>
-        <v-dialog
-            v-model="background_img_profile.dialog"
-            max-width="1000"
-            max-height="600"
-            persistent
-        >
+        <v-dialog v-model="background_img_profile.dialog" max-width="1000" max-height="600" persistent>
             <v-card>
                 <v-card-title>
                     <span class="jf-title">背景圖像庫</span>
@@ -356,12 +203,7 @@
                         <v-icon color="grey lighten-1">mdi-check</v-icon>
                     </v-btn>
                 </v-card-title>
-                <v-tabs
-                    v-model="background_img_profile.tab"
-                    background-color="transparent"
-                    color="basil"
-                    grow
-                >
+                <v-tabs v-model="background_img_profile.tab" background-color="transparent" color="basil" grow>
                     <v-tab>雲端</v-tab>
                     <v-tab>從電腦上傳</v-tab>
                 </v-tabs>
@@ -369,42 +211,21 @@
                     <v-tab-item>
                         <v-card>
                             <v-container fluid>
-                                <v-item-group
-                                    v-model="background_img_profile.cloud_select"
-                                    mandatory
-                                >
+                                <v-item-group v-model="background_img_profile.cloud_select" mandatory>
                                     <v-row>
-                                        <v-col
-                                            v-for="(item, i) in background_img_profile.cloud_img"
-                                            :key="i"
-                                            md="auto"
-                                        >
-                                            <v-item
-                                                v-slot:default="{ active, toggle }"
-                                                :value="item"
-                                            >
-                                                <v-card
-                                                    :ripple="{ class: 'white--text' }"
-                                                    min-width="100"
-                                                    min-height="150"
-                                                    max-width="200"
-                                                    max-height="150"
-                                                >
+                                        <v-col v-for="(item, i) in background_img_profile.cloud_img" :key="i" md="auto">
+                                            <v-item v-slot:default="{ active, toggle }" :value="item">
+                                                <v-card :ripple="{ class: 'white--text' }" min-width="100" min-height="150" max-width="200" max-height="150">
                                                     <v-img
                                                         @click="toggle"
                                                         :src="item"
-                                                        :class="active?'border text-right pa-2':' text-right pa-2'"
+                                                        :class="active ? 'border text-right pa-2' : ' text-right pa-2'"
                                                         max-height="150"
                                                         min-height="150"
                                                         min-width="100"
                                                         contain
                                                     >
-                                                        <v-overlay
-                                                            v-if="active"
-                                                            transition="fade-transition"
-                                                            color="rgba(100, 100, 255, 0.5)"
-                                                            absolute
-                                                        ></v-overlay>
+                                                        <v-overlay v-if="active" transition="fade-transition" color="rgba(100, 100, 255, 0.5)" absolute></v-overlay>
                                                     </v-img>
                                                 </v-card>
                                             </v-item>
@@ -418,7 +239,7 @@
                         <v-card>
                             <v-file-input
                                 v-model="background_img_profile.file_input"
-                                @change="fileOnChange($event,'background')"
+                                @change="fileOnChange($event, 'background')"
                                 :show-size="1000"
                                 class="ma-2"
                                 color="deep-purple accent-4"
@@ -430,58 +251,28 @@
                                 multiple
                             >
                                 <template v-slot:selection="{ index, text }">
-                                    <v-chip
-                                        v-if="index < 2"
-                                        color="deep-purple accent-4"
-                                        dark
-                                        label
-                                        small
-                                    >{{ text }}</v-chip>
+                                    <v-chip v-if="index < 2" color="deep-purple accent-4" dark label small>{{ text }}</v-chip>
 
-                                    <span
-                                        v-else-if="index === 2"
-                                        class="overline grey--text text--darken-3 mx-2"
-                                    >+{{ background_img_profile.file_input.length - 2 }} File(s)</span>
+                                    <span v-else-if="index === 2" class="overline grey--text text--darken-3 mx-2">+{{ background_img_profile.file_input.length - 2 }} File(s)</span>
                                 </template>
                             </v-file-input>
                             <v-container fluid>
-                                <v-item-group
-                                    v-model="background_img_profile.local_select"
-                                    mandatory
-                                >
+                                <v-item-group v-model="background_img_profile.local_select" mandatory>
                                     <v-row>
-                                        <v-col
-                                            v-for="(item, i) in background_img_profile.local_img"
-                                            :key="i"
-                                            md="auto"
-                                        >
-                                            <v-item
-                                                v-slot:default="{ active, toggle }"
-                                                :value="item"
-                                            >
-                                                <v-card
-                                                    :ripple="{ class: 'white--text' }"
-                                                    min-width="100"
-                                                    min-height="150"
-                                                    max-width="200"
-                                                    max-height="150"
-                                                >
+                                        <v-col v-for="(item, i) in background_img_profile.local_img" :key="i" md="auto">
+                                            <v-item v-slot:default="{ active, toggle }" :value="item">
+                                                <v-card :ripple="{ class: 'white--text' }" min-width="100" min-height="150" max-width="200" max-height="150">
                                                     <v-img
                                                         @click="toggle"
                                                         :src="item"
-                                                        :class="active?'border text-right pa-2':' text-right pa-2'"
+                                                        :class="active ? 'border text-right pa-2' : ' text-right pa-2'"
                                                         max-height="150"
                                                         min-height="150"
                                                         min-width="100"
                                                         class
                                                         contain
                                                     >
-                                                        <v-overlay
-                                                            v-if="active"
-                                                            transition="fade-transition"
-                                                            color="rgba(100, 100, 255, 0.5)"
-                                                            absolute
-                                                        ></v-overlay>
+                                                        <v-overlay v-if="active" transition="fade-transition" color="rgba(100, 100, 255, 0.5)" absolute></v-overlay>
                                                     </v-img>
                                                 </v-card>
                                             </v-item>
@@ -505,7 +296,7 @@ import {
     apiManageEnviroment,
     apiManageObject,
     apiManageAudio,
-    apiGetFolderFileList
+    apiGetFolderFileList,
 } from '@/js/api'
 
 export default {
@@ -521,7 +312,7 @@ export default {
                 scale: null,
                 degree: null,
                 audio: { name: null, category: null, sound_src: null },
-                id: null
+                id: null,
             },
             sprite: null,
             audio: [],
@@ -534,7 +325,7 @@ export default {
                 cloud_select: [],
                 local_select: [],
                 tab: 0,
-                dialog: false
+                dialog: false,
             },
             background_img_profile: {
                 cloud_img: [],
@@ -543,11 +334,11 @@ export default {
                 cloud_select: [],
                 local_select: [],
                 tab: 0,
-                dialog: false
+                dialog: false,
             },
             enviro_container: null,
             environment: null,
-            model: null
+            model: null,
         }
     },
     async mounted() {
@@ -567,11 +358,11 @@ export default {
             if (app.audio_type == '全部') {
                 return app.audio
             } else if (app.audio_type != null) {
-                return app.audio.filter(item => {
+                return app.audio.filter((item) => {
                     return item.category.indexOf(app.audio_type) >= 0
                 })
             }
-        }
+        },
     },
     methods: {
         test() {
@@ -595,7 +386,7 @@ export default {
                 antialias: true,
                 transparent: false,
                 resolution: 1,
-                view: document.getElementById('enviro')
+                view: document.getElementById('enviro'),
             })
 
             this.environment = new Editor(this, app, this.enviro, this.objects)
@@ -605,20 +396,20 @@ export default {
             console.log('render')
             this.environment.object_click(this.objects[0])
         },
-        requestDataAndLoad: async function(enviro_name) {
+        requestDataAndLoad: async function (enviro_name) {
             var app = this
             await this.get_enviro_data(enviro_name)
             await this.get_object_data(this.enviro.object.split(','))
             await this.getAudioData()
 
             /**將聲音分類字串轉陣列 */
-            this.audio.forEach(item => {
+            this.audio.forEach((item) => {
                 item.category = item.category.split(';')
             })
 
             /**將屬於該物件的聲音資源分配到該物件上 */
-            this.objects.forEach(object => {
-                app.audio.forEach(audio => {
+            this.objects.forEach((object) => {
+                app.audio.forEach((audio) => {
                     if (object.sound_src == audio.id) object.audio = audio
                 })
             })
@@ -640,7 +431,7 @@ export default {
             if (!PIXI.loader.resources[this.enviro.background_src])
                 load_arr.push(this.enviro.background_src)
 
-            this.objects.forEach(object => {
+            this.objects.forEach((object) => {
                 if (!PIXI.loader.resources[object.pic_src])
                     load_arr.push(object.pic_src)
                 if (!PIXI.loader.resources[object.audio.sound_src])
@@ -656,11 +447,11 @@ export default {
          */
         get_enviro_data(id) {
             return apiManageEnviroment({ type: 'get', amount: 'one', item: id })
-                .then(res => {
+                .then((res) => {
                     console.log(res.data)
                     this.enviro = res.data
                 })
-                .catch(error => {
+                .catch((error) => {
                     console.error(error)
                 })
         },
@@ -671,13 +462,13 @@ export default {
             return apiManageObject({
                 type: 'get',
                 amount: 'part',
-                items: object_arr
+                items: object_arr,
             })
-                .then(res => {
+                .then((res) => {
                     console.log(res.data)
                     this.objects = res.data
                 })
-                .catch(error => {
+                .catch((error) => {
                     console.error(error)
                 })
         },
@@ -686,11 +477,11 @@ export default {
          */
         getAudioData() {
             return apiManageAudio({ type: 'get', amount: 'all' })
-                .then(res => {
+                .then((res) => {
                     console.log(res.data)
                     this.audio = res.data
                 })
-                .catch(error => {
+                .catch((error) => {
                     console.error(error)
                 })
         },
@@ -698,8 +489,8 @@ export default {
         getAudiotypes() {
             var app = this
             this.audio_type_arr.push('全部')
-            this.audio.forEach(item => {
-                item.category.forEach(c => {
+            this.audio.forEach((item) => {
+                item.category.forEach((c) => {
                     if (app.audio_type_arr.indexOf(c) < 0)
                         app.audio_type_arr.push(c)
                 })
@@ -709,13 +500,13 @@ export default {
         getCloudObjectImages() {
             return apiGetFolderFileList({
                 path: 'images-enviro-object',
-                extensions: ['*.png']
+                extensions: ['*.png'],
             })
-                .then(res => {
+                .then((res) => {
                     console.log(res.data)
                     this.object_img_profile.cloud_img = res.data
                 })
-                .catch(error => {
+                .catch((error) => {
                     console.error(error)
                 })
         },
@@ -723,22 +514,22 @@ export default {
         getCloudBackgroundImages() {
             return apiGetFolderFileList({
                 path: 'images-enviro-background',
-                extensions: ['*.gif', '*.jpg', '*.png']
+                extensions: ['*.gif', '*.jpg', '*.png'],
             })
-                .then(res => {
+                .then((res) => {
                     console.log(res.data)
                     this.background_img_profile.cloud_img = res.data
                 })
-                .catch(error => {
+                .catch((error) => {
                     console.error(error)
                 })
         },
         /**將選取好得檔案放入(背景/物件)圖庫中 */
-        fileOnChange: function(event, type) {
-            event.forEach(file => {
+        fileOnChange: function (event, type) {
+            event.forEach((file) => {
                 var reader = new FileReader()
                 var app = this
-                reader.onload = function(event) {
+                reader.onload = function (event) {
                     if (type == 'background')
                         app.background_img_profile.local_img.push(
                             event.target.result
@@ -757,7 +548,6 @@ export default {
                 this.object_img_profile.tab == 0
                     ? this.object_img_profile.cloud_select
                     : this.object_img_profile.local_select
-
             this.sprite.texture = PIXI.Texture.from(select_img)
             this.object_img_profile.dialog = false
         },
@@ -770,7 +560,7 @@ export default {
 
             var app = this
             var bg_texture = PIXI.Texture.from(select_img)
-            bg_texture.baseTexture.on('loaded', function() {
+            bg_texture.baseTexture.on('loaded', function () {
                 var scale =
                     app.environment.getBackground().width / bg_texture.width
                 app.environment.getBackground().scale.set(scale, scale)
@@ -788,7 +578,7 @@ export default {
                 pic_src: '../static/images/enviro/object/object.png',
                 size: '100',
                 sound_src: null,
-                audio: null
+                audio: null,
             }
             var object_texture = PIXI.Texture.from(
                 '../static/images/enviro/object/object.png'
@@ -798,7 +588,7 @@ export default {
                 object_texture
             )
             object_data.sprite = object
-            object_data.sprite.click = function() {
+            object_data.sprite.click = function () {
                 app.environment.object_click(object_data)
             }
             this.environment.object_drag(object_data)
@@ -810,7 +600,7 @@ export default {
         deleteObject() {
             var app = this
             var delete_object_index = this.objects.findIndex(
-                object => object.sprite == app.sprite
+                (object) => object.sprite == app.sprite
             )
             this.objects[delete_object_index].sprite.parent.removeChild(
                 this.objects[delete_object_index].sprite
@@ -818,7 +608,7 @@ export default {
             this.objects[delete_object_index].sprite.destroy({
                 children: true,
                 texture: true,
-                baseTexture: true
+                baseTexture: true,
             })
             this.objects.splice(delete_object_index, 1)
 
@@ -831,27 +621,21 @@ export default {
         },
         /**將情境化面調整到適當大小(當視窗大小改變時，執行此函式) */
         onResizeCanvas() {
+            const default_width = 1000
+            const default_height = 625
+
+            let space_width = window.innerWidth - 320
+            let space_height = window.innerHeight - 264
+
+            let aspect_ratio = Math.min(
+                space_width / default_width,
+                space_height / default_height
+            )
+
             var element = document.getElementsByClassName('enviro')[0]
-            var space_width = window.innerWidth - 320
-            var space_height = window.innerHeight - 264
-            if ((space_width / 1000) * 625 > space_height) {
-                element.style.cssText =
-                    'width: ' +
-                    (space_height / 625) * 1000 +
-                    'px;' +
-                    'height: ' +
-                    space_height +
-                    'px'
-            } else {
-                element.style.cssText =
-                    'width: ' +
-                    space_width +
-                    'px;' +
-                    'height: ' +
-                    (space_width / 1000) * 625 +
-                    'px'
-            }
-        }
+            element.style.cssText = `width: ${default_width * aspect_ratio}px; 
+                                    height: ${default_height * aspect_ratio}px;`
+        },
     },
     watch: {
         select_object: {
@@ -872,9 +656,9 @@ export default {
 
                 this.objects[i].name = this.select_object.name
             },
-            deep: true
-        }
-    }
+            deep: true,
+        },
+    },
 }
 </script>
 
