@@ -1,6 +1,6 @@
 import * as PIXI from 'pixi.js'
 
-export default class Scene extends PIXI.Stage {
+export default class Scene extends PIXI.Container {
     constructor(background) {
         super(background)
         this.paused = false

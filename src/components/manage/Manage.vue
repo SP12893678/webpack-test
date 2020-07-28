@@ -5,13 +5,7 @@
                 <v-app-bar-nav-icon @click="nav_drawer = true" data-v-step="0"></v-app-bar-nav-icon>
                 <v-toolbar-title>情境式環境音管理平台</v-toolbar-title>
                 <v-spacer></v-spacer>
-                <v-menu
-                    v-model="notify"
-                    :close-on-content-click="false"
-                    nudge-width="300"
-                    max-height="400"
-                    offset-y
-                >
+                <v-menu v-model="notify" :close-on-content-click="false" nudge-width="300" max-height="400" offset-y>
                     <template v-slot:activator="{ on, attrs }">
                         <v-btn v-bind="attrs" v-on="on" icon>
                             <v-badge color="pink" dot>
@@ -178,7 +172,8 @@ export default {
             this.dialog = val
         },
         callGuideTour() {
-            this.$tours[this.$route.name].start()
+            if (this.$tours[this.$route.name])
+                this.$tours[this.$route.name].start()
         },
     },
 }

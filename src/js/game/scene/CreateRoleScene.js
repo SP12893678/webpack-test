@@ -2,7 +2,7 @@ import * as PIXI from 'pixi.js'
 import Scene from '@/js/game/engine/Scene'
 import Events from '@/js/game/Events'
 import Button from 'Component/button'
-import Dialog from 'Component/dialog'
+import SettingMenu from 'Component/SettingMenu'
 import ResourcesManager from '@/js/game/engine/ResourcesManager'
 import ScenesManager from '@/js/game/engine/ScenesManager'
 
@@ -18,7 +18,7 @@ export default class CreateRoleScene extends Scene {
         super()
         this.setBackground()
         this.setButton()
-        // this.setDialog()
+        this.setMenu()
     }
 
     setBackground() {
@@ -40,10 +40,13 @@ export default class CreateRoleScene extends Scene {
         this.button = button
     }
 
-    setDialog() {
-        var dialog = new Dialog()
-        this.addChild(dialog)
-        this.dialog = dialog
+    setMenu() {
+        var menu = new SettingMenu()
+        menu.background.interactive = true
+        menu.background.click = () => {
+            menu.visible = false
+        }
+        this.addChild(menu)
     }
 
     update() {

@@ -5,7 +5,7 @@
             <v-card-title class="jf-title">物件列表</v-card-title>
             <v-divider></v-divider>
             <v-slide-group v-model="model" mandatory show-arrows center-active>
-                <v-slide-item v-for="(object, index) in objects" v-slot:default="{ active, toggle }">
+                <v-slide-item v-for="(object, index) in objects" :key="object.id" v-slot:default="{ active, toggle }">
                     <v-card @click="clickObject(index)" :color="active ? 'primary' : 'grey lighten-1'" class="ma-4" height="100" width="100">
                         <v-img :src="object.pic_src" max-height="100" min-height="100" min-width="100" contain></v-img>
                     </v-card>
@@ -20,9 +20,7 @@
                         <v-list-item-title class="font-weight-medium jf-title">編輯區域</v-list-item-title>
                     </v-list-item-content>
                     <v-spacer></v-spacer>
-                    <v-btn @click="test" color="red" text>
-                        <v-icon left>mdi-content-save</v-icon>儲存
-                    </v-btn>
+                    <v-btn @click="test" color="red" text> <v-icon left>mdi-content-save</v-icon>儲存 </v-btn>
                 </v-list-item>
             </template>
             <v-divider></v-divider>
@@ -74,15 +72,37 @@
                                 </v-col>
                             </v-row>
                             <v-btn @click="object_img_profile.dialog = true" class="mt-2 mb-2" color="secondary" block>選擇物件圖片</v-btn>
-                            <v-slider v-model="select_object.scale" max="20" min="0.0001" step="0.0001" class="mb-3 mt-3" prepend-icon="mdi-aspect-ratio" hide-details>
+                            <v-slider
+                                v-model="select_object.scale"
+                                max="20"
+                                min="0.0001"
+                                step="0.0001"
+                                class="mb-3 mt-3"
+                                prepend-icon="mdi-aspect-ratio"
+                                hide-details
+                            >
                                 <template v-slot:append>
-                                    <v-text-field v-model="select_object.scale" type="number" class="mt-0 pt-0" style="width: 60px" single-line hide-details></v-text-field>
+                                    <v-text-field
+                                        v-model="select_object.scale"
+                                        type="number"
+                                        class="mt-0 pt-0"
+                                        style="width: 60px"
+                                        single-line
+                                        hide-details
+                                    ></v-text-field>
                                 </template>
                             </v-slider>
 
                             <v-slider v-model="select_object.degree" min="0" max="360" prepend-icon="mdi-format-rotate-90" hide-details>
                                 <template v-slot:append>
-                                    <v-text-field v-model="select_object.degree" type="number" class="mt-0 pt-0" style="width: 60px" hide-details single-line></v-text-field>
+                                    <v-text-field
+                                        v-model="select_object.degree"
+                                        type="number"
+                                        class="mt-0 pt-0"
+                                        style="width: 60px"
+                                        hide-details
+                                        single-line
+                                    ></v-text-field>
                                 </template>
                             </v-slider>
 
@@ -91,7 +111,16 @@
                                     <v-select v-model="audio_type" :items="audio_type_arr" label="聲音類別" dense outlined hide-details></v-select>
                                 </v-col>
                                 <v-col cols="12" sm="5" class="mr-0">
-                                    <v-select v-model="select_object.audio" item-text="name" :items="audioName" label="聲音名稱" return-object dense outlined hide-detail></v-select>
+                                    <v-select
+                                        v-model="select_object.audio"
+                                        item-text="name"
+                                        :items="audioName"
+                                        label="聲音名稱"
+                                        return-object
+                                        dense
+                                        outlined
+                                        hide-detail
+                                    ></v-select>
                                 </v-col>
                                 <v-col cols="12" sm="1">
                                     <v-btn icon>
@@ -135,7 +164,12 @@
                                                         min-width="100"
                                                         contain
                                                     >
-                                                        <v-overlay v-if="active" transition="fade-transition" color="rgba(100, 100, 255, 0.5)" absolute></v-overlay>
+                                                        <v-overlay
+                                                            v-if="active"
+                                                            transition="fade-transition"
+                                                            color="rgba(100, 100, 255, 0.5)"
+                                                            absolute
+                                                        ></v-overlay>
                                                     </v-img>
                                                 </v-card>
                                             </v-item>
@@ -163,7 +197,9 @@
                                 <template v-slot:selection="{ index, text }">
                                     <v-chip v-if="index < 2" color="deep-purple accent-4" dark label small>{{ text }}</v-chip>
 
-                                    <span v-else-if="index === 2" class="overline grey--text text--darken-3 mx-2">+{{ object_img_profile.file_input.length - 2 }} File(s)</span>
+                                    <span v-else-if="index === 2" class="overline grey--text text--darken-3 mx-2"
+                                        >+{{ object_img_profile.file_input.length - 2 }} File(s)</span
+                                    >
                                 </template>
                             </v-file-input>
                             <v-container fluid>
@@ -181,7 +217,12 @@
                                                         min-width="100"
                                                         contain
                                                     >
-                                                        <v-overlay v-if="active" transition="fade-transition" color="rgba(100, 100, 255, 0.5)" absolute></v-overlay>
+                                                        <v-overlay
+                                                            v-if="active"
+                                                            transition="fade-transition"
+                                                            color="rgba(100, 100, 255, 0.5)"
+                                                            absolute
+                                                        ></v-overlay>
                                                     </v-img>
                                                 </v-card>
                                             </v-item>
@@ -225,7 +266,12 @@
                                                         min-width="100"
                                                         contain
                                                     >
-                                                        <v-overlay v-if="active" transition="fade-transition" color="rgba(100, 100, 255, 0.5)" absolute></v-overlay>
+                                                        <v-overlay
+                                                            v-if="active"
+                                                            transition="fade-transition"
+                                                            color="rgba(100, 100, 255, 0.5)"
+                                                            absolute
+                                                        ></v-overlay>
                                                     </v-img>
                                                 </v-card>
                                             </v-item>
@@ -253,7 +299,9 @@
                                 <template v-slot:selection="{ index, text }">
                                     <v-chip v-if="index < 2" color="deep-purple accent-4" dark label small>{{ text }}</v-chip>
 
-                                    <span v-else-if="index === 2" class="overline grey--text text--darken-3 mx-2">+{{ background_img_profile.file_input.length - 2 }} File(s)</span>
+                                    <span v-else-if="index === 2" class="overline grey--text text--darken-3 mx-2"
+                                        >+{{ background_img_profile.file_input.length - 2 }} File(s)</span
+                                    >
                                 </template>
                             </v-file-input>
                             <v-container fluid>
@@ -272,7 +320,12 @@
                                                         class
                                                         contain
                                                     >
-                                                        <v-overlay v-if="active" transition="fade-transition" color="rgba(100, 100, 255, 0.5)" absolute></v-overlay>
+                                                        <v-overlay
+                                                            v-if="active"
+                                                            transition="fade-transition"
+                                                            color="rgba(100, 100, 255, 0.5)"
+                                                            absolute
+                                                        ></v-overlay>
                                                     </v-img>
                                                 </v-card>
                                             </v-item>
@@ -292,12 +345,7 @@
 import * as PIXI from 'pixi.js'
 import Sound from 'pixi-sound'
 import { Editor } from '@/js/manage/environment'
-import {
-    apiManageEnviroment,
-    apiManageObject,
-    apiManageAudio,
-    apiGetFolderFileList,
-} from '@/js/api'
+import { apiManageEnviroment, apiManageObject, apiManageAudio, apiGetFolderFileList } from '@/js/api'
 
 export default {
     props: ['passdata'],
@@ -396,7 +444,7 @@ export default {
             console.log('render')
             this.environment.object_click(this.objects[0])
         },
-        requestDataAndLoad: async function (enviro_name) {
+        requestDataAndLoad: async function(enviro_name) {
             var app = this
             await this.get_enviro_data(enviro_name)
             await this.get_object_data(this.enviro.object.split(','))
@@ -421,21 +469,13 @@ export default {
             // 將需加載的資源放入陣列
             var load_arr = []
 
-            if (
-                !PIXI.loader.resources[
-                    '../static/images/enviro/object/object.png'
-                ]
-            )
-                load_arr.push('../static/images/enviro/object/object.png')
+            if (!PIXI.loader.resources['../static/images/enviro/object/object.png']) load_arr.push('../static/images/enviro/object/object.png')
 
-            if (!PIXI.loader.resources[this.enviro.background_src])
-                load_arr.push(this.enviro.background_src)
+            if (!PIXI.loader.resources[this.enviro.background_src]) load_arr.push(this.enviro.background_src)
 
             this.objects.forEach((object) => {
-                if (!PIXI.loader.resources[object.pic_src])
-                    load_arr.push(object.pic_src)
-                if (!PIXI.loader.resources[object.audio.sound_src])
-                    load_arr.push(object.audio.sound_src)
+                if (!PIXI.loader.resources[object.pic_src]) load_arr.push(object.pic_src)
+                if (!PIXI.loader.resources[object.audio.sound_src]) load_arr.push(object.audio.sound_src)
             })
 
             // 判定有無資源須加載，並執行情境建立與設定
@@ -491,8 +531,7 @@ export default {
             this.audio_type_arr.push('全部')
             this.audio.forEach((item) => {
                 item.category.forEach((c) => {
-                    if (app.audio_type_arr.indexOf(c) < 0)
-                        app.audio_type_arr.push(c)
+                    if (app.audio_type_arr.indexOf(c) < 0) app.audio_type_arr.push(c)
                 })
             })
         },
@@ -525,44 +564,31 @@ export default {
                 })
         },
         /**將選取好得檔案放入(背景/物件)圖庫中 */
-        fileOnChange: function (event, type) {
+        fileOnChange: function(event, type) {
             event.forEach((file) => {
                 var reader = new FileReader()
                 var app = this
-                reader.onload = function (event) {
-                    if (type == 'background')
-                        app.background_img_profile.local_img.push(
-                            event.target.result
-                        )
-                    else
-                        app.object_img_profile.local_img.push(
-                            event.target.result
-                        )
+                reader.onload = function(event) {
+                    if (type == 'background') app.background_img_profile.local_img.push(event.target.result)
+                    else app.object_img_profile.local_img.push(event.target.result)
                 }
                 reader.readAsDataURL(file)
             })
         },
         /**更改情境物件圖片 */
         changeObjectImg() {
-            var select_img =
-                this.object_img_profile.tab == 0
-                    ? this.object_img_profile.cloud_select
-                    : this.object_img_profile.local_select
+            var select_img = this.object_img_profile.tab == 0 ? this.object_img_profile.cloud_select : this.object_img_profile.local_select
             this.sprite.texture = PIXI.Texture.from(select_img)
             this.object_img_profile.dialog = false
         },
         /**更改情境背景圖片 */
         changeBackgroundImg() {
-            var select_img =
-                this.background_img_profile.tab == 0
-                    ? this.background_img_profile.cloud_select
-                    : this.background_img_profile.local_select
+            var select_img = this.background_img_profile.tab == 0 ? this.background_img_profile.cloud_select : this.background_img_profile.local_select
 
             var app = this
             var bg_texture = PIXI.Texture.from(select_img)
-            bg_texture.baseTexture.on('loaded', function () {
-                var scale =
-                    app.environment.getBackground().width / bg_texture.width
+            bg_texture.baseTexture.on('loaded', function() {
+                var scale = app.environment.getBackground().width / bg_texture.width
                 app.environment.getBackground().scale.set(scale, scale)
                 app.environment.getBackground().texture = bg_texture
                 app.background_img_profile.dialog = false
@@ -580,15 +606,10 @@ export default {
                 sound_src: null,
                 audio: null,
             }
-            var object_texture = PIXI.Texture.from(
-                '../static/images/enviro/object/object.png'
-            )
-            var object = this.environment.creat_Object(
-                object_data,
-                object_texture
-            )
+            var object_texture = PIXI.Texture.from('../static/images/enviro/object/object.png')
+            var object = this.environment.creat_Object(object_data, object_texture)
             object_data.sprite = object
-            object_data.sprite.click = function () {
+            object_data.sprite.click = function() {
                 app.environment.object_click(object_data)
             }
             this.environment.object_drag(object_data)
@@ -599,12 +620,8 @@ export default {
         /**刪除被選取之情境物件,並點擊物件陣列索引0的物件 */
         deleteObject() {
             var app = this
-            var delete_object_index = this.objects.findIndex(
-                (object) => object.sprite == app.sprite
-            )
-            this.objects[delete_object_index].sprite.parent.removeChild(
-                this.objects[delete_object_index].sprite
-            )
+            var delete_object_index = this.objects.findIndex((object) => object.sprite == app.sprite)
+            this.objects[delete_object_index].sprite.parent.removeChild(this.objects[delete_object_index].sprite)
             this.objects[delete_object_index].sprite.destroy({
                 children: true,
                 texture: true,
@@ -627,10 +644,7 @@ export default {
             let space_width = window.innerWidth - 320
             let space_height = window.innerHeight - 264
 
-            let aspect_ratio = Math.min(
-                space_width / default_width,
-                space_height / default_height
-            )
+            let aspect_ratio = Math.min(space_width / default_width, space_height / default_height)
 
             var element = document.getElementsByClassName('enviro')[0]
             element.style.cssText = `width: ${default_width * aspect_ratio}px; 
@@ -647,12 +661,8 @@ export default {
                 })
                 this.sprite.position.x = this.select_object.position.x
                 this.sprite.position.y = this.select_object.position.y
-                this.sprite.rotation =
-                    this.select_object.degree * (Math.PI / 180)
-                this.sprite.scale.set(
-                    this.select_object.scale,
-                    this.select_object.scale
-                )
+                this.sprite.rotation = this.select_object.degree * (Math.PI / 180)
+                this.sprite.scale.set(this.select_object.scale, this.select_object.scale)
 
                 this.objects[i].name = this.select_object.name
             },

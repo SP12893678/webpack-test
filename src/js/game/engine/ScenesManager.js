@@ -55,7 +55,6 @@ class ScenesManager {
         this.ratio = Math.min(window.innerWidth / this.defaultWidth, window.innerHeight / this.defaultHeight)
         this.width = this.defaultWidth * this.ratio
         this.height = this.defaultHeight * this.ratio
-        console.log(this.width, this.height)
         this.renderer.view.style.width = this.width + 'px'
         this.renderer.view.style.height = this.height + 'px'
     }

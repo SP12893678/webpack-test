@@ -10,6 +10,14 @@ require('vue-tour/dist/vue-tour.css')
 
 Vue.use(VueTour)
 
+// let console = {
+//     isDev: false,
+//     log(...args) {
+//         if (!this.isDev) return
+//         window.console.log(...args)
+//     },
+// }
+
 new Vue({
     vuetify,
     router,

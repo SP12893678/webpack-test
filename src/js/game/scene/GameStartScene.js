@@ -15,6 +15,11 @@ let Application = PIXI.Application,
 export default class GameStartScene extends Scene {
     constructor() {
         super()
+        this.interactive = true
+        this.buttonMode = true
+        this.click = () => {
+            Events.emit('goto', { id: 'create_role', animate: 'fadeIn' })
+        }
         this.setBackground()
         this.setButton()
     }
@@ -30,7 +35,8 @@ export default class GameStartScene extends Scene {
         var button = new Button(150, 50, 20)
         button.position.set(100, 400)
         button.click = () => {
-            Events.emit('goto', { id: 'create_role', animate: 'fadeIn' })
+            console.log(132)
+            // Events.emit('goto', { id: 'create_role', animate: 'fadeIn' })
         }
         this.addChild(button)
         this.button = button

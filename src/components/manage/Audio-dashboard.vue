@@ -5,27 +5,15 @@
             <v-list-item-content>
                 <v-list-item-title class="jf-title pa-2">聲音資源</v-list-item-title>
             </v-list-item-content>
-            <v-text-field
-                v-model="audio_data_table.search"
-                append-icon="mdi-magnify"
-                label="聲音資源搜尋"
-                single-line
-                hide-details
-            ></v-text-field>
+            <v-text-field v-model="audio_data_table.search" append-icon="mdi-magnify" label="聲音資源搜尋" single-line hide-details></v-text-field>
             <v-list-item-action class="ml-4 mb-0">
-                <v-btn @click="addAudio" text>
-                    <v-icon left>mdi-music-note-plus</v-icon>新增
-                </v-btn>
+                <v-btn @click="addAudio" text> <v-icon left>mdi-music-note-plus</v-icon>新增 </v-btn>
             </v-list-item-action>
             <v-list-item-action class="mb-0">
-                <v-btn @click.prevent="editAudio" color="blue" text>
-                    <v-icon left>mdi-pencil</v-icon>編輯
-                </v-btn>
+                <v-btn @click.prevent="editAudio" color="blue" text> <v-icon left>mdi-pencil</v-icon>編輯 </v-btn>
             </v-list-item-action>
             <v-list-item-action class="ml-0 mb-0">
-                <v-btn @click="deleteAudioAsk" color="red" text>
-                    <v-icon left>mdi-delete</v-icon>刪除
-                </v-btn>
+                <v-btn @click="deleteAudioAsk" color="red" text> <v-icon left>mdi-delete</v-icon>刪除 </v-btn>
             </v-list-item-action>
         </v-list-item>
 
@@ -48,12 +36,7 @@
                         multi-sort
                     >
                         <template v-slot:item.category="{ item }">
-                            <v-chip
-                                v-for="i in item.category"
-                                :color="getCategoryColor(i)"
-                                class="mr-2"
-                                outlined
-                            >{{ i }}</v-chip>
+                            <v-chip v-for="i in item.category" :color="getCategoryColor(i)" :key="item.audio_id" class="mr-2" outlined>{{ i }}</v-chip>
                         </template>
                         <template v-slot:item.sound="{ item }">
                             <v-btn @click="playAudio(item)" icon>
@@ -73,26 +56,28 @@
                 <v-list>
                     <v-list-item>
                         <v-list-item-content>
-                            <v-list-item-title>{{audio[audio_player_sheet.player.index].name}}</v-list-item-title>
-                            <v-list-item-subtitle>{{audio[audio_player_sheet.player.index].audio_id}}</v-list-item-subtitle>
+                            <v-list-item-title>{{ audio[audio_player_sheet.player.index].name }}</v-list-item-title>
+                            <v-list-item-subtitle>{{ audio[audio_player_sheet.player.index].audio_id }}</v-list-item-subtitle>
                         </v-list-item-content>
                         <v-list-item-content>
                             <v-list-item-title>頻率</v-list-item-title>
-                            <v-list-item-subtitle>{{audio[audio_player_sheet.player.index].frequency}}</v-list-item-subtitle>
+                            <v-list-item-subtitle>{{ audio[audio_player_sheet.player.index].frequency }}</v-list-item-subtitle>
                         </v-list-item-content>
                         <v-list-item-content>
                             <v-list-item-title>波形</v-list-item-title>
-                            <v-list-item-subtitle>{{audio[audio_player_sheet.player.index].waveform}}</v-list-item-subtitle>
+                            <v-list-item-subtitle>{{ audio[audio_player_sheet.player.index].waveform }}</v-list-item-subtitle>
                         </v-list-item-content>
                         <v-list-item-content>
                             <v-list-item-subtitle>
                                 <v-chip
                                     v-for="i in audio[audio_player_sheet.player.index].category"
+                                    :key="i"
                                     :color="getCategoryColor(i)"
                                     class="mr-2"
                                     outlined
                                     small
-                                >{{ i }}</v-chip>
+                                    >{{ i }}</v-chip
+                                >
                             </v-list-item-subtitle>
                         </v-list-item-content>
 
@@ -125,11 +110,7 @@
         <v-dialog v-model="dialog" max-width="400" persistent>
             <v-card>
                 <v-card-title class="headline">你確定要刪除下列聲音資源?</v-card-title>
-                <v-simple-table
-                    v-if="audio_data_table.selected.length > 0"
-                    :height="getTableheight()"
-                    fixed-header
-                >
+                <v-simple-table v-if="audio_data_table.selected.length > 0" :height="getTableheight()" fixed-header>
                     <template v-slot:default>
                         <thead>
                             <tr>
@@ -138,7 +119,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="item in audio_data_table.selected">
+                            <tr v-for="item in audio_data_table.selected" :key="item.audio_id">
                                 <td>{{ item.name }}</td>
                                 <td>{{ item.audio_id }}</td>
                             </tr>
@@ -181,18 +162,18 @@ export default {
                     { text: '頻率', value: 'frequency' },
                     { text: '波形', value: 'waveform' },
                     { text: '創建時間', value: 'created_time' },
-                    { text: '聲音', value: 'sound', sortable: false }
+                    { text: '聲音', value: 'sound', sortable: false },
                 ],
                 selected: [],
                 search: '',
-                loading: true
+                loading: true,
             },
             audio_player_sheet: {
                 bottom_sheet: false,
                 player: { index: 0, duration: 0, currentTime: 0, pause: false },
-                audio: new Audio()
+                audio: new Audio(),
             },
-            snackbar: { body: false, text: null, timeout: 2000 }
+            snackbar: { body: false, text: null, timeout: 2000 },
         }
     },
     async mounted() {
@@ -203,18 +184,15 @@ export default {
         this.audioPlayerEvent()
 
         /**將聲音資源分類以陣列形式表示 */
-        this.audio.forEach(item => {
+        this.audio.forEach((item) => {
             item.category = item.category.split(';')
         })
 
         /**過濾聲音資源分類並賦予顏色 */
         var app = this
-        this.audio.forEach(item => {
-            item.category.forEach(category => {
-                if (
-                    app.audio_categories.find(item => item.name == category) ==
-                    undefined
-                ) {
+        this.audio.forEach((item) => {
+            item.category.forEach((category) => {
+                if (app.audio_categories.find((item) => item.name == category) == undefined) {
                     var r = Math.round(Math.random() * 255)
                     var g = Math.round(Math.random() * 255)
                     var b = Math.round(Math.random() * 255)
@@ -234,12 +212,8 @@ export default {
     computed: {
         /**取得播放器當前進度 */
         getPlayerProcess() {
-            return (
-                (this.audio_player_sheet.player.currentTime /
-                    this.audio_player_sheet.player.duration) *
-                100
-            )
-        }
+            return (this.audio_player_sheet.player.currentTime / this.audio_player_sheet.player.duration) * 100
+        },
     },
     methods: {
         test() {
@@ -250,11 +224,11 @@ export default {
          */
         getAudioData() {
             return apiManageAudio({ type: 'get', amount: 'all' })
-                .then(res => {
+                .then((res) => {
                     console.log(res.data)
                     this.audio = res.data
                 })
-                .catch(error => {
+                .catch((error) => {
                     console.error(error)
                 })
         },
@@ -264,22 +238,14 @@ export default {
          */
         audioPlayerEvent() {
             var app = this
-            this.audio_player_sheet.audio.addEventListener(
-                'loadedmetadata',
-                () => {
-                    app.audio_player_sheet.player.duration =
-                        app.audio_player_sheet.audio.duration
-                }
-            )
+            this.audio_player_sheet.audio.addEventListener('loadedmetadata', () => {
+                app.audio_player_sheet.player.duration = app.audio_player_sheet.audio.duration
+            })
             this.audio_player_sheet.audio.addEventListener(
                 'timeupdate',
                 () => {
-                    app.audio_player_sheet.player.currentTime =
-                        app.audio_player_sheet.audio.currentTime
-                    if (
-                        app.audio_player_sheet.player.currentTime ==
-                        app.audio_player_sheet.player.duration
-                    ) {
+                    app.audio_player_sheet.player.currentTime = app.audio_player_sheet.audio.currentTime
+                    if (app.audio_player_sheet.player.currentTime == app.audio_player_sheet.player.duration) {
                         this.audio_player_sheet.player.pause = true
                     }
                 },
@@ -289,22 +255,17 @@ export default {
         /**將需加載的資源放入陣列並加載 */
         loadAudioResources() {
             var load_resources = []
-            this.audio.forEach(object => {
-                if (!PIXI.loader.resources[object.sound_src])
-                    load_resources.push(object.sound_src)
+            this.audio.forEach((object) => {
+                if (!PIXI.loader.resources[object.sound_src]) load_resources.push(object.sound_src)
             })
             // console.log(load_resources)
 
             // PIXI.loader.reset()
-            if (load_resources.length > 0)
-                PIXI.loader.add(load_resources).load()
+            if (load_resources.length > 0) PIXI.loader.add(load_resources).load()
         },
         /**取得該分類之顏色 */
         getCategoryColor(category) {
-            return this.audio_categories.length != 0
-                ? this.audio_categories.find(item => item.name == category)
-                      .color
-                : 'black'
+            return this.audio_categories.length != 0 ? this.audio_categories.find((item) => item.name == category).color : 'black'
         },
         /**播放該聲音資源並顯示播放器表單 */
         playAudio(item) {
@@ -330,25 +291,16 @@ export default {
         previousAudio() {
             this.pauseAudio()
             this.audio_player_sheet.player.index =
-                this.audio_player_sheet.player.index - 1 >= 0
-                    ? this.audio_player_sheet.player.index - 1
-                    : this.audio.length - 1
-            this.audio_player_sheet.audio.src = this.audio[
-                this.audio_player_sheet.player.index
-            ].sound_src
+                this.audio_player_sheet.player.index - 1 >= 0 ? this.audio_player_sheet.player.index - 1 : this.audio.length - 1
+            this.audio_player_sheet.audio.src = this.audio[this.audio_player_sheet.player.index].sound_src
             this.audio_player_sheet.audio.play()
             this.audio_player_sheet.player.pause = false
         },
         /**播放下一個聲音資源 */
         nextAudio() {
             this.pauseAudio()
-            this.audio_player_sheet.player.index =
-                this.audio_player_sheet.player.index + 1 < this.audio.length
-                    ? this.audio_player_sheet.player.index + 1
-                    : 0
-            this.audio_player_sheet.audio.src = this.audio[
-                this.audio_player_sheet.player.index
-            ].sound_src
+            this.audio_player_sheet.player.index = this.audio_player_sheet.player.index + 1 < this.audio.length ? this.audio_player_sheet.player.index + 1 : 0
+            this.audio_player_sheet.audio.src = this.audio[this.audio_player_sheet.player.index].sound_src
             this.audio_player_sheet.audio.play()
             this.audio_player_sheet.player.pause = false
         },
@@ -356,12 +308,12 @@ export default {
         editAudio: function() {
             if (this.audio_data_table.selected.length > 0) {
                 var obj = { audio: { id: [] } }
-                this.audio_data_table.selected.forEach(item => {
+                this.audio_data_table.selected.forEach((item) => {
                     obj.audio.id.push(item.id)
                 })
                 this.$router.push({
                     name: 'audio-edit',
-                    params: { passdata: obj }
+                    params: { passdata: obj },
                 })
             } else {
                 this.snackbar.text = '無選取任何聲音以編輯'
@@ -385,13 +337,10 @@ export default {
         },
         /**取得刪除提示框中的資料表高度 */
         getTableheight() {
-            if (this.audio_data_table.selected.length <= 5) {
-                return (this.audio_data_table.selected.length + 1) * 48
-            } else {
-                return 300
-            }
-        }
-    }
+            if (this.audio_data_table.selected.length <= 5) return (this.audio_data_table.selected.length + 1) * 48
+            else return 300
+        },
+    },
 }
 </script>
 
