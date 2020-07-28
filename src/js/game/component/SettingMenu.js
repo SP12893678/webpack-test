@@ -15,12 +15,10 @@ export default class SettingMenu extends Overlay {
         super()
 
         var background = new Sprite(resources[ResourcesManager.menu].texture)
-        var scale = (ScenesManager.defaultWidth * 0.4) / background.width
+        var scale = 800 / background.width
         background.scale.set(scale, scale)
-        background.anchor.set(0.5, 0.5)
-        background.position.set(ScenesManager.defaultWidth / 2, ScenesManager.defaultHeight / 2)
+        background.position.set(0, 0)
         this.addChild(background)
-
         this.background = background
     }
 }

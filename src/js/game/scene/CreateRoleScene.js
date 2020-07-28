@@ -47,6 +47,7 @@ export default class CreateRoleScene extends Scene {
             menu.visible = false
         }
         this.addChild(menu)
+        this.menu = menu
     }
 
     update() {

@@ -1,6 +1,6 @@
 import 'babel-polyfill'
 import * as PIXI from 'pixi.js'
-
+import * as dat from 'dat.gui'
 import ScenesManager from '@/js/game/engine/ScenesManager'
 import ResourcesManager from '@/js/game/engine/ResourcesManager'
 import Events from '@/js/game/Events'
@@ -64,4 +64,29 @@ PixiPlugin.registerPIXI(PIXI)
         .load(start)
 
     // console.log(img)
+    const gui = new dat.GUI()
+    var effectController = {
+        button: { X: 1, Y: 1 },
+        menu: { X: 1, Y: 1 },
+    }
+
+    // 滑動的 controller，拖動範圍為 3~15，間隔為1
+    var button = gui.addFolder('Button')
+    button.add(effectController.button, 'X', 0, 1600, 1).onChange(countChange)
+    button.add(effectController.button, 'Y', 0, 900, 1).onChange(countChange)
+    button.open()
+
+    var menu = gui.addFolder('Menu')
+    menu.add(effectController.menu, 'X', 0, 1600, 1).onChange(countChange)
+    menu.add(effectController.menu, 'Y', 0, 900, 1).onChange(countChange)
+    menu.open()
+
+    function countChange() {
+        if (scenesManager.scenes['game_start']) {
+            scenesManager.scenes['game_start'].button.position.set(effectController.button.X, effectController.button.Y)
+        }
+        if (scenesManager.scenes['create_role']) {
+            scenesManager.scenes['create_role'].menu.background.position.set(effectController.menu.X, effectController.menu.Y)
+        }
+    }
 })()
